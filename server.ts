@@ -129,6 +129,16 @@ async function startServer() {
     res.json({ success: true, message: 'Database reset to clean empty state.' });
   });
 
+  app.post('/api/db/seed', (req, res) => {
+    db.seedDemo();
+    res.json({ 
+      success: true, 
+      message: 'Sample demonstration data loaded successfully for all 11 stages.',
+      jobsCount: db.jobs.length,
+      workersCount: db.workers.length
+    });
+  });
+
   app.get('/api/db/status', (req, res) => {
     res.json({
       jobsCount: db.jobs.length,
@@ -973,7 +983,13 @@ async function startServer() {
 
   // Stage 4: Trust Score calculation & breakdown
   app.get('/api/trust-score/:workerId', (req, res) => {
-    const details = db.calculateTrustScore(req.params.workerId);
+    let targetWorkerId = req.params.workerId;
+    if (targetWorkerId === 'me' || targetWorkerId === 'current') {
+      const user = resolveUser(req);
+      const worker = user ? db.getWorkerByUserId(user.id) : null;
+      targetWorkerId = worker ? worker.id : (db.workers[0]?.id || 'worker-1');
+    }
+    const details = db.calculateTrustScore(targetWorkerId);
     res.json(details);
   });
 
@@ -1243,8 +1259,8 @@ async function startServer() {
     res.json(db.payments);
   });
 
-  app.post('/api/payments/release', (req, res) => {
-    const { paymentId } = req.body;
+  const handlePaymentRelease = (req: express.Request, res: express.Response) => {
+    const paymentId = req.params.id || req.body.paymentId;
     const user = resolveUser(req);
 
     if (user && user.role !== 'employer' && user.role !== 'admin') {
@@ -1285,7 +1301,10 @@ async function startServer() {
     });
 
     res.json({ success: true, payment });
-  });
+  };
+
+  app.post('/api/payments/release', handlePaymentRelease);
+  app.post('/api/payments/:id/release', handlePaymentRelease);
 
   // Stage 9: Work Completion & Progress
   app.get('/api/progress', (req, res) => {
@@ -1361,26 +1380,49 @@ async function startServer() {
   });
 
   // Stage 10: Ratings & Reviews
-  app.get('/api/reviews', (req, res) => {
+  const handleGetReviews = (req: express.Request, res: express.Response) => {
     res.json(db.reviews);
-  });
+  };
+  app.get('/api/reviews', handleGetReviews);
+  app.get('/api/ratings', handleGetReviews);
 
-  app.post('/api/reviews', (req, res) => {
-    const { agreementId, toUserId, toRole, rating, qualityOfWork, communication, punctuality, comment } = req.body;
-    const currentUser = resolveUser(req) || db.users[0];
-    const targetUser = db.users.find(u => u.id === toUserId) || db.users[0];
+  const handlePostReview = (req: express.Request, res: express.Response) => {
+    const { 
+      agreementId, 
+      toUserId, 
+      toUserName, 
+      fromUserId, 
+      fromUserName, 
+      toRole, 
+      rating, 
+      qualityOfWork, 
+      communication, 
+      punctuality, 
+      comment,
+      jobTitle 
+    } = req.body;
+    
+    const user = resolveUser(req);
+    const senderId = user?.id || fromUserId || 'usr-employer-1';
+    const senderName = user?.name || fromUserName || 'Verified Party';
+    const senderRole = (user?.role || 'employer') as ('employer' | 'worker');
+
+    const targetUser = db.users.find(u => u.id === toUserId || u.name === toUserName) || 
+                       db.workers.find(w => w.id === toUserId || w.fullName === toUserName) ||
+                       { id: toUserId || 'worker-1', name: toUserName || 'Worker' };
+                       
     const agr = db.agreements.find(a => a.id === agreementId);
 
     const newReview = {
       id: `rev-${Date.now()}`,
-      agreementId: agreementId || 'agr-demo',
-      fromUserId: currentUser.id,
-      fromUserName: currentUser.name,
-      fromRole: currentUser.role as ('employer' | 'worker'),
+      agreementId: agreementId || agr?.id || 'agr-demo',
+      fromUserId: senderId,
+      fromUserName: senderName,
+      fromRole: senderRole,
       toUserId: targetUser.id,
-      toUserName: targetUser.name,
+      toUserName: (targetUser as any).fullName || (targetUser as any).name || 'Verified User',
       toRole: toRole || 'worker',
-      jobTitle: agr?.jobTitle || 'Verified Job Deliverable',
+      jobTitle: jobTitle || agr?.jobTitle || 'Verified Job Deliverable',
       rating: Number(rating) || 5,
       qualityOfWork: Number(qualityOfWork) || 5,
       communication: Number(communication) || 5,
@@ -1392,20 +1434,22 @@ async function startServer() {
     db.reviews.unshift(newReview);
 
     // If review was for a worker, update their rating average and recalculate trust score
-    if (toRole === 'worker') {
-      const worker = db.workers.find(w => w.userId === targetUser.id);
-      if (worker) {
-        const workerReviews = db.reviews.filter(r => r.toUserId === targetUser.id);
-        const avg = workerReviews.reduce((sum, r) => sum + r.rating, 0) / workerReviews.length;
-        worker.ratingsAverage = Math.round(avg * 10) / 10;
-        worker.ratingsCount = workerReviews.length;
-        const ts = db.calculateTrustScore(worker.id);
-        worker.trustScore = ts.score;
-      }
+    const worker = db.workers.find(w => w.userId === targetUser.id || w.id === targetUser.id || w.id === toUserId);
+    if (worker) {
+      const workerReviews = db.reviews.filter(r => r.toUserId === worker.userId || r.toUserId === worker.id);
+      const avg = workerReviews.reduce((sum, r) => sum + r.rating, 0) / workerReviews.length;
+      worker.ratingsAverage = Math.round(avg * 10) / 10;
+      worker.ratingsCount = workerReviews.length;
+      const ts = db.calculateTrustScore(worker.id);
+      worker.trustScore = ts.score;
     }
 
     res.json(newReview);
-  });
+  };
+
+  app.post('/api/reviews', handlePostReview);
+  app.post('/api/ratings', handlePostReview);
+  app.post('/api/ratings/submit', handlePostReview);
 
   // Stage 11: Dispute Resolution
   app.get('/api/disputes', (req, res) => {

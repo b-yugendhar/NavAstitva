@@ -14,37 +14,83 @@ interface WorkerDashboardProps {
 }
 
 export const WorkerDashboard: React.FC<WorkerDashboardProps> = ({ onNavigate }) => {
-  const { currentUser } = useAuth();
+  const { currentUser, seedDatabaseDemo } = useAuth();
   const { t } = useLanguage();
   const [worker, setWorker] = useState<WorkerProfile | null>(null);
   const [agreements, setAgreements] = useState<DigitalAgreement[]>([]);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [payments, setPayments] = useState<PaymentRecord[]>([]);
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch('/api/workers')
       .then(res => res.json())
       .then(workers => {
-        const found = workers.find((w: WorkerProfile) => w.userId === currentUser?.id) || workers[0];
+        const found = (Array.isArray(workers) ? workers : []).find((w: WorkerProfile) => w.userId === currentUser?.id) || workers?.[0] || null;
         setWorker(found);
-      });
+      })
+      .catch(err => console.error(err))
+      .finally(() => setIsLoading(false));
 
     fetch('/api/agreements')
       .then(res => res.json())
-      .then(data => setAgreements(data));
+      .then(data => setAgreements(Array.isArray(data) ? data : []))
+      .catch(err => console.error(err));
 
     fetch('/api/jobs')
       .then(res => res.json())
-      .then(data => setJobs(data.slice(0, 3)));
+      .then(data => setJobs(Array.isArray(data) ? data.slice(0, 3) : []))
+      .catch(err => console.error(err));
 
     fetch('/api/payments')
       .then(res => res.json())
-      .then(data => setPayments(data));
+      .then(data => setPayments(Array.isArray(data) ? data : []))
+      .catch(err => console.error(err));
   }, [currentUser]);
 
+  if (isLoading) {
+    return <div className="p-12 text-center text-slate-500 font-medium">Loading worker dashboard...</div>;
+  }
+
   if (!worker) {
-    return <div className="p-8 text-center text-slate-500">Loading worker profile...</div>;
+    return (
+      <div className="max-w-2xl mx-auto my-12 bg-white border border-slate-200 rounded-3xl p-8 text-center space-y-6 shadow-xs">
+        <div className="w-16 h-16 bg-purple-100 text-purple-700 rounded-2xl flex items-center justify-center mx-auto">
+          <ShieldCheck className="w-8 h-8" />
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-2xl font-black text-slate-900">Welcome to Your Worker Dashboard</h2>
+          <p className="text-sm text-slate-600 max-w-md mx-auto">
+            You don't have an active worker profile yet. Take our 60-second AI Skill Assessment to get accredited, or load demo trade data to explore.
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <button
+            onClick={() => setIsAiModalOpen(true)}
+            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-sm font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer"
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>Launch AI Skill Assessment</span>
+          </button>
+          <button
+            onClick={async () => {
+              await seedDatabaseDemo();
+              window.location.reload();
+            }}
+            className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-sm font-bold transition-all cursor-pointer"
+          >
+            Load Sample Profile
+          </button>
+        </div>
+        <AiSkillScoringModal
+          isOpen={isAiModalOpen}
+          onClose={() => setIsAiModalOpen(false)}
+          onScoreSuccess={() => window.location.reload()}
+        />
+      </div>
+    );
   }
 
   const activeAgreement = agreements.find(a => a.status === 'active' || a.status === 'pending_worker_acceptance');

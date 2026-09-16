@@ -9,15 +9,30 @@ export const TrustScorePage: React.FC = () => {
   const [breakdown, setBreakdown] = useState<TrustScoreBreakdown | null>(null);
 
   useEffect(() => {
-    fetch('/api/trust-score/worker-1')
-      .then(res => res.json())
+    fetch('/api/trust-score/me')
+      .then(res => {
+        if (!res.ok) return fetch('/api/trust-score/worker-1').then(r => r.json());
+        return res.json();
+      })
       .then(data => setBreakdown(data))
-      .catch(err => console.error(err));
+      .catch(() => {
+        fetch('/api/trust-score/worker-1')
+          .then(res => res.json())
+          .then(data => setBreakdown(data))
+          .catch(err => console.error(err));
+      });
   }, []);
 
   if (!breakdown) {
     return <div className="p-8 text-center text-slate-500">Calculating Trust Score...</div>;
   }
+
+  const verifiedSkillsVal = (breakdown.breakdown as any)?.verifiedSkills ?? (breakdown.breakdown as any)?.verifiedSkillsScore ?? 0;
+  const evidenceVal = (breakdown.breakdown as any)?.evidence ?? (breakdown.breakdown as any)?.evidenceScore ?? 0;
+  const workHistoryVal = (breakdown.breakdown as any)?.workHistory ?? (breakdown.breakdown as any)?.workHistoryScore ?? 0;
+  const ratingsVal = (breakdown.breakdown as any)?.ratings ?? (breakdown.breakdown as any)?.ratingScore ?? 0;
+  const explanationsList = breakdown.explanation || (Array.isArray(breakdown.factors) ? breakdown.factors : []);
+  const tipsList = breakdown.improvementTips || [];
 
   return (
     <div className="space-y-8 pb-12">
@@ -56,7 +71,7 @@ export const TrustScorePage: React.FC = () => {
               <ShieldCheck className="w-4 h-4 text-purple-600" />
             </div>
             <div className="text-2xl font-black text-slate-900 mb-1">
-              {breakdown.breakdown.verifiedSkillsScore} <span className="text-xs text-slate-400 font-normal">/ 30 pts</span>
+              {verifiedSkillsVal} <span className="text-xs text-slate-400 font-normal">/ 30 pts</span>
             </div>
             <p className="text-xs text-slate-600 leading-snug">
               Based on official NSDC certifications and verified trade proficiency assessments.
@@ -65,7 +80,7 @@ export const TrustScorePage: React.FC = () => {
           <div className="w-full bg-slate-100 rounded-full h-2 mt-4 overflow-hidden">
             <div 
               className="bg-purple-600 h-full rounded-full" 
-              style={{ width: `${(breakdown.breakdown.verifiedSkillsScore / 30) * 100}%` }}
+              style={{ width: `${(verifiedSkillsVal / 30) * 100}%` }}
             ></div>
           </div>
         </div>
@@ -78,7 +93,7 @@ export const TrustScorePage: React.FC = () => {
               <FileText className="w-4 h-4 text-orange-500" />
             </div>
             <div className="text-2xl font-black text-slate-900 mb-1">
-              {breakdown.breakdown.evidenceScore} <span className="text-xs text-slate-400 font-normal">/ 25 pts</span>
+              {evidenceVal} <span className="text-xs text-slate-400 font-normal">/ 25 pts</span>
             </div>
             <p className="text-xs text-slate-600 leading-snug">
               High-resolution work photos, schematics, and client reference letters.
@@ -87,7 +102,7 @@ export const TrustScorePage: React.FC = () => {
           <div className="w-full bg-slate-100 rounded-full h-2 mt-4 overflow-hidden">
             <div 
               className="bg-orange-500 h-full rounded-full" 
-              style={{ width: `${(breakdown.breakdown.evidenceScore / 25) * 100}%` }}
+              style={{ width: `${(evidenceVal / 25) * 100}%` }}
             ></div>
           </div>
         </div>
@@ -100,7 +115,7 @@ export const TrustScorePage: React.FC = () => {
               <Lock className="w-4 h-4 text-indigo-600" />
             </div>
             <div className="text-2xl font-black text-slate-900 mb-1">
-              {breakdown.breakdown.workHistoryScore} <span className="text-xs text-slate-400 font-normal">/ 25 pts</span>
+              {workHistoryVal} <span className="text-xs text-slate-400 font-normal">/ 25 pts</span>
             </div>
             <p className="text-xs text-slate-600 leading-snug">
               Confirmed job completions, zero breach of contract, and repeat hires.
@@ -109,7 +124,7 @@ export const TrustScorePage: React.FC = () => {
           <div className="w-full bg-slate-100 rounded-full h-2 mt-4 overflow-hidden">
             <div 
               className="bg-indigo-600 h-full rounded-full" 
-              style={{ width: `${(breakdown.breakdown.workHistoryScore / 25) * 100}%` }}
+              style={{ width: `${(workHistoryVal / 25) * 100}%` }}
             ></div>
           </div>
         </div>
@@ -122,16 +137,16 @@ export const TrustScorePage: React.FC = () => {
               <Star className="w-4 h-4 text-amber-500" />
             </div>
             <div className="text-2xl font-black text-slate-900 mb-1">
-              {breakdown.breakdown.ratingScore} <span className="text-xs text-slate-400 font-normal">/ 20 pts</span>
+              {ratingsVal} <span className="text-xs text-slate-400 font-normal">/ 20 pts</span>
             </div>
             <p className="text-xs text-slate-600 leading-snug">
-              4.8 / 5.0 average score across punctuality, communication, and work quality.
+              Average score across punctuality, communication, and work craftsmanship.
             </p>
           </div>
           <div className="w-full bg-slate-100 rounded-full h-2 mt-4 overflow-hidden">
             <div 
               className="bg-amber-500 h-full rounded-full" 
-              style={{ width: `${(breakdown.breakdown.ratingScore / 20) * 100}%` }}
+              style={{ width: `${(ratingsVal / 20) * 100}%` }}
             ></div>
           </div>
         </div>
@@ -147,16 +162,20 @@ export const TrustScorePage: React.FC = () => {
           </h3>
 
           <div className="space-y-3">
-            {breakdown.factors.map((factor, idx) => (
-              <div key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200/80">
-                <div className="p-1 rounded-full bg-purple-100 text-purple-700 shrink-0 mt-0.5">
-                  <Check className="w-3.5 h-3.5" />
+            {explanationsList.length > 0 ? (
+              explanationsList.map((factor, idx) => (
+                <div key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                  <div className="p-1 rounded-full bg-purple-100 text-purple-700 shrink-0 mt-0.5">
+                    <Check className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="text-xs text-slate-700 leading-relaxed font-medium">
+                    {typeof factor === 'string' ? factor : JSON.stringify(factor)}
+                  </div>
                 </div>
-                <div className="text-xs text-slate-700 leading-relaxed font-medium">
-                  {factor}
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <div className="text-xs text-slate-500 italic p-3">No score factors calculated yet.</div>
+            )}
           </div>
         </div>
 
@@ -168,17 +187,21 @@ export const TrustScorePage: React.FC = () => {
           </h3>
 
           <div className="space-y-3">
-            {breakdown.improvementTips.map((tip, idx) => (
-              <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-orange-50/50 border border-orange-100">
-                <div className="w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold shrink-0">
-                  +{idx === 0 ? 5 : 4}
+            {tipsList.length > 0 ? (
+              tipsList.map((tip, idx) => (
+                <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-orange-50/50 border border-orange-100">
+                  <div className="w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold shrink-0">
+                    +{idx === 0 ? 5 : 4}
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900 mb-0.5">{tip}</div>
+                    <div className="text-[11px] text-slate-500">Completing this step raises your ranking in employer candidate searches.</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-900 mb-0.5">{tip}</div>
-                  <div className="text-[11px] text-slate-500">Completing this step raises your ranking in employer candidate searches.</div>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <div className="text-xs text-slate-500 italic p-3">Submit trade evidence to receive personalized tips.</div>
+            )}
           </div>
         </div>
       </div>

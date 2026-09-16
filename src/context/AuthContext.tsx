@@ -16,6 +16,7 @@ interface AuthContextType {
   registerUser: (data: any) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   refreshUserData: () => Promise<void>;
+  updateTrustScore: (newScore: number) => void;
   resetDatabaseEmpty: () => Promise<void>;
   seedDatabaseDemo: () => Promise<void>;
 }
@@ -178,6 +179,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const updateTrustScore = (newScore: number) => {
+    setWorkerProfile(prev => prev ? { ...prev, trustScore: newScore } : null);
+    fetchCurrent();
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -194,6 +200,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         registerUser,
         logout,
         refreshUserData: fetchCurrent,
+        updateTrustScore,
         resetDatabaseEmpty,
         seedDatabaseDemo
       }}

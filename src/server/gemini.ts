@@ -16,8 +16,36 @@ function getAiClient(): GoogleGenAI | null {
   return aiClient;
 }
 
-// Fallback models in priority order according to skill guidelines
-const CANDIDATE_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+// Supported Gemini models according to current AI Studio guidelines
+const CANDIDATE_MODELS = ['gemini-3.8-flash', 'gemini-flash-latest', 'gemini-3.1-flash-lite'];
+
+/**
+ * Strips markdown code blocks like ```json ... ``` from model outputs safely before parsing
+ */
+export function cleanJsonText(raw: string): string {
+  let cleaned = raw.trim();
+  if (cleaned.startsWith('```json')) {
+    cleaned = cleaned.slice(7);
+  } else if (cleaned.startsWith('```')) {
+    cleaned = cleaned.slice(3);
+  }
+  if (cleaned.endsWith('```')) {
+    cleaned = cleaned.slice(0, -3);
+  }
+  return cleaned.trim();
+}
+
+async function withTimeout<T>(promise: Promise<T>, timeoutMs = 7000): Promise<T> {
+  let timer: any;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error('AI request timed out')), timeoutMs);
+  });
+  try {
+    return await Promise.race([promise, timeoutPromise]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 async function generateContentWithResilience(
   client: GoogleGenAI,
@@ -26,30 +54,21 @@ async function generateContentWithResilience(
 ): Promise<string | null> {
   for (const model of CANDIDATE_MODELS) {
     try {
-      const response = await client.models.generateContent({
-        model,
-        contents: prompt,
-        config,
-      });
+      const response = await withTimeout(
+        client.models.generateContent({
+          model,
+          contents: prompt,
+          config,
+        }),
+        7000
+      );
       if (response && response.text) {
         return response.text.trim();
       }
     } catch (err: any) {
-      // Check for temporary high demand (503), rate limits (429), or unavailable status
-      const isTransient =
-        err?.status === 503 ||
-        err?.status === 429 ||
-        err?.message?.includes('503') ||
-        err?.message?.includes('high demand') ||
-        err?.message?.includes('UNAVAILABLE');
-
-      if (isTransient) {
-        // Quietly try the next model candidate
-        continue;
-      } else {
-        // Non-transient error, break to fallback
-        break;
-      }
+      console.warn(`[Gemini] Model ${model} unavailable or failed:`, err?.message || err);
+      // Try next candidate model
+      continue;
     }
   }
   return null;
@@ -110,11 +129,11 @@ Respond ONLY with valid JSON in this exact structure:
 
       const text = await generateContentWithResilience(client, prompt, { responseMimeType: 'application/json' });
       if (text) {
-        const parsed = JSON.parse(text);
+        const parsed = JSON.parse(cleanJsonText(text));
         return parsed;
       }
-    } catch {
-      // Graceful fallback to deterministic engine
+    } catch (err) {
+      console.warn('[Gemini] Evidence analysis parsing or model error, using fallback:', err);
     }
   }
 
@@ -203,10 +222,10 @@ Respond ONLY with valid JSON in this exact structure:
 
       const text = await generateContentWithResilience(client, prompt, { responseMimeType: 'application/json' });
       if (text) {
-        return JSON.parse(text);
+        return JSON.parse(cleanJsonText(text));
       }
-    } catch {
-      // Graceful fallback
+    } catch (err) {
+      console.warn('[Gemini] Dispute analysis parsing or model error, using fallback:', err);
     }
   }
 
@@ -397,11 +416,11 @@ Respond ONLY with valid JSON in this exact structure:
 
       const text = await generateContentWithResilience(client, prompt, { responseMimeType: 'application/json' });
       if (text) {
-        const parsed = JSON.parse(text);
+        const parsed = JSON.parse(cleanJsonText(text));
         return parsed;
       }
-    } catch {
-      // Fallback
+    } catch (err) {
+      console.warn('[Gemini] Skill profile analysis parsing or model error, using fallback:', err);
     }
   }
 
