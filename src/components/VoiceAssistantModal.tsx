@@ -61,14 +61,14 @@ export const VoiceAssistantModal: React.FC<VoiceAssistantModalProps> = ({ isOpen
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
       <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Header */}
-        <div className="bg-gradient-to-r from-purple-700 to-orange-600 px-6 py-4 text-white flex items-center justify-between">
+        <div className="bg-gradient-to-r from-orange-500 to-red-500 px-6 py-4 text-white flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-white/10 backdrop-blur-xs">
-              <Bot className="w-5 h-5 text-purple-200" />
+              <Bot className="w-5 h-5 text-amber-200" />
             </div>
             <div>
-              <h3 className="font-bold text-base">NavAstitva Voice & Multilingual Assistant</h3>
-              <p className="text-xs text-purple-100">Powered by Gemini AI • 9 Indian Languages</p>
+              <h3 className="font-bold text-base">Voice Assistant</h3>
+              <p className="text-xs text-orange-100">Speak or type in your language</p>
             </div>
           </div>
           <button 
@@ -85,10 +85,10 @@ export const VoiceAssistantModal: React.FC<VoiceAssistantModalProps> = ({ isOpen
 
         {/* Content Area */}
         <div className="p-6 overflow-y-auto flex-1 space-y-4">
-          <div className="bg-purple-50 rounded-xl p-3 border border-purple-200/80 flex items-start gap-3">
-            <Sparkles className="w-5 h-5 text-purple-700 shrink-0 mt-0.5" />
-            <div className="text-xs text-purple-950">
-              Speak or type in your language. The assistant answers clearly and will read the response aloud to support low-literacy workers.
+          <div className="bg-orange-50 rounded-xl p-3 border border-orange-200 flex items-start gap-3">
+            <Sparkles className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
+            <div className="text-xs text-orange-950">
+              Ask any question by voice or text. The assistant provides answers and speaks them aloud.
             </div>
           </div>
 
@@ -105,9 +105,9 @@ export const VoiceAssistantModal: React.FC<VoiceAssistantModalProps> = ({ isOpen
                     setPrompt(q.text);
                     handleAsk(q.text);
                   }}
-                  className="text-xs bg-slate-100 hover:bg-purple-50 hover:text-purple-800 text-slate-700 px-2.5 py-1.5 rounded-lg border border-slate-200 transition-colors text-left cursor-pointer"
+                  className="text-xs bg-slate-100 hover:bg-orange-50 hover:text-orange-800 text-slate-700 px-2.5 py-1.5 rounded-lg border border-slate-200 transition-colors text-left cursor-pointer"
                 >
-                  <span className="font-semibold text-purple-700 mr-1">[{q.langLabel}]</span>
+                  <span className="font-semibold text-orange-600 mr-1">[{q.langLabel}]</span>
                   {q.text}
                 </button>
               ))}
@@ -117,20 +117,20 @@ export const VoiceAssistantModal: React.FC<VoiceAssistantModalProps> = ({ isOpen
           {/* Assistant Answer Box */}
           {isLoading && (
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center gap-3 text-slate-600 text-sm">
-              <Loader2 className="w-5 h-5 animate-spin text-purple-600" />
+              <Loader2 className="w-5 h-5 animate-spin text-orange-600" />
               <span>Thinking in your selected language...</span>
             </div>
           )}
 
           {response && (
-            <div className="p-4 rounded-xl bg-purple-50/70 border border-purple-200 space-y-3">
+            <div className="p-4 rounded-xl bg-orange-50/70 border border-orange-200 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-purple-800 flex items-center gap-1.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-orange-800 flex items-center gap-1.5">
                   <Bot className="w-4 h-4" /> AI Audio Guidance
                 </span>
                 <button
                   onClick={() => isSpeaking ? stopSpeaking() : speakText(response)}
-                  className="inline-flex items-center gap-1 text-xs font-bold px-2 py-1 rounded bg-white text-purple-800 border border-purple-300 shadow-2xs hover:bg-purple-100 cursor-pointer"
+                  className="inline-flex items-center gap-1 text-xs font-bold px-2 py-1 rounded bg-white text-orange-800 border border-orange-300 shadow-2xs hover:bg-orange-100 cursor-pointer"
                 >
                   <Volume2 className="w-3.5 h-3.5" />
                   <span>{isSpeaking ? 'Stop Audio' : 'Listen Again'}</span>
@@ -175,14 +175,14 @@ export const VoiceAssistantModal: React.FC<VoiceAssistantModalProps> = ({ isOpen
             onKeyDown={e => {
               if (e.key === 'Enter') handleAsk();
             }}
-            className="flex-1 bg-white border border-slate-300 px-3.5 py-2 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="flex-1 bg-white border border-slate-300 px-3.5 py-2 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
 
           <button
             type="button"
             onClick={() => handleAsk()}
             disabled={isLoading || !prompt.trim()}
-            className="p-2.5 bg-purple-600 hover:bg-purple-700 disabled:opacity-40 text-white rounded-xl transition-colors cursor-pointer"
+            className="p-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 disabled:opacity-40 text-white rounded-xl transition-colors cursor-pointer"
           >
             <Send className="w-4 h-4" />
           </button>

@@ -109,33 +109,33 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
     <div className="space-y-8 pb-12">
       {/* Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-700 mb-1">
-          <CheckCheck className="w-4 h-4 text-purple-600" />
-          <span>Work Completion & Milestone Inspection</span>
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-700 mb-1">
+          <CheckCheck className="w-4 h-4 text-orange-600" />
+          <span>Work Progress</span>
         </div>
         <h1 className="text-2xl font-black text-slate-900">
-          Milestone Progress & Completion Tracking
+          Work Progress & Completion
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mt-1">
-          Workers document progress with timestamped photos and milestone notes. Employers inspect deliverables and approve completion, triggering automatic release of protected escrow wages.
+        <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mt-1">
+          Track milestones, document progress with photos, and verify completed work to disburse escrow.
         </p>
       </div>
 
       {progressRecords.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-xs space-y-4 max-w-xl mx-auto">
-          <div className="w-16 h-16 rounded-2xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 rounded-2xl bg-orange-50 border border-orange-200 text-orange-600 flex items-center justify-center mx-auto">
             <CheckCheck className="w-8 h-8" />
           </div>
           <div>
             <h3 className="text-lg font-black text-slate-900">No Active Deployments</h3>
             <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-              When work contracts are signed between employers and artisans, real-time milestones are tracked here.
+              When work contracts are signed, real-time milestones are tracked here.
             </p>
           </div>
           <div className="flex items-center justify-center gap-3 pt-2">
             <button
               onClick={() => onNavigate('agreements')}
-              className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
             >
               View Work Contracts
             </button>
@@ -162,7 +162,7 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                   onClick={() => setSelectedRecord(prog)}
                   className={`p-4 rounded-xl border transition-all cursor-pointer ${
                     selectedRecord?.id === prog.id
-                      ? 'border-purple-500 bg-purple-50/50 shadow-xs'
+                      ? 'border-orange-500 bg-orange-50/50 shadow-xs'
                       : 'border-slate-200 bg-white hover:border-slate-300'
                   }`}
                 >
@@ -170,10 +170,10 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                     <h3 className="font-bold text-xs sm:text-sm text-slate-900 line-clamp-1">{prog.jobTitle}</h3>
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                       prog.completionStatus === 'confirmed'
-                        ? 'bg-purple-100 text-purple-800'
+                        ? 'bg-emerald-100 text-emerald-800'
                         : prog.completionStatus === 'submitted_for_review'
                         ? 'bg-orange-100 text-orange-800'
-                        : 'bg-blue-100 text-blue-800'
+                        : 'bg-amber-100 text-amber-800'
                     }`}>
                       {prog.completionStatus.replace(/_/g, ' ')}
                     </span>
@@ -186,7 +186,7 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                     </div>
                     <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
                       <div 
-                        className="bg-purple-600 h-full rounded-full" 
+                        className="bg-gradient-to-r from-orange-500 to-red-500 h-full rounded-full" 
                         style={{ width: `${prog.progressPercentage}%` }}
                       ></div>
                     </div>
@@ -217,7 +217,7 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                   </div>
                   <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
                     <div 
-                      className="bg-purple-600 h-full rounded-full transition-all duration-500" 
+                      className="bg-gradient-to-r from-orange-500 to-red-500 h-full rounded-full transition-all duration-500" 
                       style={{ width: `${selectedRecord.progressPercentage}%` }}
                     ></div>
                   </div>
@@ -233,7 +233,7 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                     {selectedRecord.updates.map((upd, idx) => (
                       <div key={idx} className="p-3.5 rounded-xl border border-slate-200 bg-white space-y-2">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="font-bold text-purple-800">{upd.percentage}% Milestone Logged</span>
+                          <span className="font-bold text-orange-800">{upd.percentage}% Milestone Logged</span>
                           <span className="text-slate-400">{new Date(upd.timestamp).toLocaleString()}</span>
                         </div>
                         <p className="text-xs text-slate-700 leading-relaxed">{upd.note}</p>
@@ -255,8 +255,8 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                 </div>
 
                 {/* Worker Submit New Progress Form */}
-                <form onSubmit={handleSendUpdate} className="p-4 rounded-xl bg-purple-50/40 border border-purple-100 space-y-3">
-                  <h4 className="text-xs font-bold text-purple-900 uppercase tracking-wider">
+                <form onSubmit={handleSendUpdate} className="p-4 rounded-xl bg-orange-50/40 border border-orange-200 space-y-3">
+                  <h4 className="text-xs font-bold text-orange-900 uppercase tracking-wider">
                     Worker Milestone Submission
                   </h4>
 
@@ -271,16 +271,16 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                         placeholder="e.g. 50"
                         value={percentage}
                         onChange={e => setPercentage(e.target.value)}
-                        className="w-full px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                        className="w-full px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">Worksite Photo (Upload or URL)</label>
+                      <label className="block text-xs font-bold text-slate-700 mb-1">Worksite Photo</label>
                       <input 
                         type="file"
                         accept="image/*"
                         onChange={handlePhotoUpload}
-                        className="block w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200"
+                        className="block w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-orange-100 file:text-orange-700 hover:file:bg-orange-200"
                       />
                     </div>
                   </div>
@@ -293,14 +293,14 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                       placeholder="Describe what was accomplished in this phase..."
                       value={note}
                       onChange={e => setNote(e.target.value)}
-                      className="w-full px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                      className="w-full px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isUpdating}
-                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
+                    className="px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
                   >
                     {isUpdating ? 'Logging...' : 'Submit Progress Update'}
                   </button>
@@ -309,13 +309,13 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                 {/* Employer Inspection & Completion Approval */}
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
                   <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                    Employer Inspection & Completion Verification
+                    Inspection & Verification
                   </h4>
 
                   {selectedRecord.completionStatus === 'confirmed' ? (
-                    <div className="p-3 bg-purple-100 text-purple-900 rounded-xl text-xs font-bold flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-purple-700" />
-                      <span>Completion Officially Confirmed! Escrow payment has been released to worker.</span>
+                    <div className="p-3 bg-emerald-100 text-emerald-900 rounded-xl text-xs font-bold flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+                      <span>Completion confirmed. Escrow payment released to worker.</span>
                     </div>
                   ) : (
                     <div className="flex gap-2">
@@ -327,7 +327,7 @@ export const WorkProgressPage: React.FC<WorkProgressPageProps> = ({ onNavigate }
                       </button>
                       <button
                         onClick={() => handleConfirmCompletion(true)}
-                        className="flex-1 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1.5"
+                        className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1.5"
                       >
                         <Check className="w-4 h-4" />
                         <span>Confirm Completion & Release Escrow</span>

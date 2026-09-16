@@ -72,21 +72,21 @@ export const RatingsPage: React.FC = () => {
       {/* Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-700 mb-1">
-            <Star className="w-4 h-4 fill-purple-600 text-purple-600" />
-            <span>Verified Work History & Reciprocal Ratings</span>
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-700 mb-1">
+            <Star className="w-4 h-4 fill-orange-600 text-orange-600" />
+            <span>Verified Ratings</span>
           </div>
           <h1 className="text-2xl font-black text-slate-900">
-            Work History & Trust Testimonials
+            Ratings & Reviews
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mt-1">
-            Every completed contract is cryptographically logged into the worker's permanent digital portfolio. Both employers and workers rate each other across quality, punctuality, and communication.
+          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mt-1">
+            Reciprocal ratings and feedback across quality, punctuality, and communication.
           </p>
         </div>
 
         <button
           onClick={() => setIsReviewModalOpen(true)}
-          className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer shrink-0"
+          className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer shrink-0"
         >
           <Star className="w-4 h-4" />
           <span>Write a Review</span>
@@ -95,30 +95,30 @@ export const RatingsPage: React.FC = () => {
 
       {/* Aggregate Score Highlight */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className="bg-purple-50/80 border border-purple-200 text-slate-900 p-6 rounded-2xl shadow-xs flex items-center gap-6">
+        <div className="bg-orange-50/80 border border-orange-200 text-slate-900 p-6 rounded-2xl shadow-xs flex items-center gap-6">
           <div className="text-center shrink-0">
-            <div className="text-4xl font-black text-purple-950">{avgRating}</div>
+            <div className="text-4xl font-black text-orange-950">{avgRating}</div>
             <div className="flex text-amber-500 mt-1 justify-center">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-3.5 h-3.5 fill-current" />
               ))}
             </div>
-            <div className="text-[10px] text-purple-800 font-bold mt-1">Overall Rating</div>
+            <div className="text-[10px] text-orange-800 font-bold mt-1">Overall Rating</div>
           </div>
-          <div className="border-l border-purple-200 pl-6 text-xs text-slate-700 space-y-1">
-            <div>Quality of Work: <strong className="text-slate-900">4.9 / 5.0</strong></div>
+          <div className="border-l border-orange-200 pl-6 text-xs text-slate-700 space-y-1">
+            <div>Quality: <strong className="text-slate-900">4.9 / 5.0</strong></div>
             <div>Punctuality: <strong className="text-slate-900">4.8 / 5.0</strong></div>
-            <div>Safety Compliance: <strong className="text-slate-900">5.0 / 5.0</strong></div>
+            <div>Safety: <strong className="text-slate-900">5.0 / 5.0</strong></div>
           </div>
         </div>
 
         <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
           <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
-            Total Completed Deliverables
+            Completed Projects
           </div>
           <div className="text-3xl font-black text-slate-900">{reviews.length > 0 ? `${reviews.length} Verified` : '0 Contracts'}</div>
-          <div className="text-xs text-purple-700 font-semibold mt-2">
-            ✓ 100% verified on-site milestone completion
+          <div className="text-xs text-orange-700 font-semibold mt-2">
+            ✓ 100% verified milestone completion
           </div>
         </div>
 
@@ -126,9 +126,9 @@ export const RatingsPage: React.FC = () => {
           <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
             Repeat Hire Rate
           </div>
-          <div className="text-3xl font-black text-orange-600">88%</div>
+          <div className="text-3xl font-black text-red-600">88%</div>
           <div className="text-xs text-slate-500 mt-2">
-            Employers rehiring for subsequent projects
+            Clients rehiring for subsequent jobs
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@ export const RatingsPage: React.FC = () => {
       {/* Review Cards Grid */}
       <div className="space-y-4">
         <h2 className="text-base font-extrabold text-slate-900">
-          Verified Client Reviews ({reviews.length})
+          Client Reviews ({reviews.length})
         </h2>
 
         {reviews.length === 0 ? (
@@ -144,7 +144,7 @@ export const RatingsPage: React.FC = () => {
             <Star className="w-8 h-8 text-slate-400 mx-auto" />
             <div className="font-bold text-slate-800 text-sm">No Client Reviews Yet</div>
             <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-              When work contracts reach verified completion, client ratings and reciprocal peer reviews are published here.
+              When work contracts reach verified completion, client ratings and reviews appear here.
             </p>
             <button
               onClick={seedDatabaseDemo}
@@ -187,14 +187,14 @@ export const RatingsPage: React.FC = () => {
       {isReviewModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-            <div className="bg-purple-900 px-6 py-4 text-white flex items-center justify-between">
+            <div className="bg-gradient-to-r from-orange-600 to-red-600 px-6 py-4 text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Star className="w-5 h-5 text-amber-400" />
-                <h3 className="font-bold text-base">Submit Reciprocal Review</h3>
+                <Star className="w-5 h-5 text-white" />
+                <h3 className="font-bold text-base">Submit Review</h3>
               </div>
               <button 
                 onClick={() => setIsReviewModalOpen(false)}
-                className="p-1 rounded hover:bg-purple-800 cursor-pointer"
+                className="p-1 rounded hover:bg-white/20 cursor-pointer text-white"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -202,7 +202,7 @@ export const RatingsPage: React.FC = () => {
 
             <form onSubmit={handleSubmitReview} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Overall Star Rating (1-5)</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Overall Rating (1-5)</label>
                 <input 
                   type="number" 
                   min="1" 
@@ -210,7 +210,7 @@ export const RatingsPage: React.FC = () => {
                   required
                   value={rating}
                   onChange={e => setRating(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -220,7 +220,7 @@ export const RatingsPage: React.FC = () => {
                   <select
                     value={quality}
                     onChange={e => setQuality(e.target.value)}
-                    className="w-full px-2 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-2 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   >
                     <option value="5">5 - Exceptional</option>
                     <option value="4">4 - Good</option>
@@ -232,7 +232,7 @@ export const RatingsPage: React.FC = () => {
                   <select
                     value={comm}
                     onChange={e => setComm(e.target.value)}
-                    className="w-full px-2 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-2 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   >
                     <option value="5">5 - Excellent</option>
                     <option value="4">4 - Clear</option>
@@ -244,7 +244,7 @@ export const RatingsPage: React.FC = () => {
                   <select
                     value={punct}
                     onChange={e => setPunct(e.target.value)}
-                    className="w-full px-2 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-2 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   >
                     <option value="5">5 - On Time</option>
                     <option value="4">4 - Minor Delay</option>
@@ -253,14 +253,14 @@ export const RatingsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Written Testimonial</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Review Notes</label>
                 <textarea
                   rows={3}
                   required
-                  placeholder="Describe your experience with the craftsmanship and work delivery..."
+                  placeholder="Describe your experience with the delivery and craftsmanship..."
                   value={comment}
                   onChange={e => setComment(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -275,9 +275,9 @@ export const RatingsPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
+                  className="px-5 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
                 >
-                  Publish Verified Review
+                  Submit Review
                 </button>
               </div>
             </form>

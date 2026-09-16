@@ -222,23 +222,23 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-purple-100 flex items-center justify-between bg-purple-50/60">
+        <div className="px-6 py-4 border-b border-orange-100 flex items-center justify-between bg-orange-50/60">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center shadow-xs">
-              <Sparkles className="w-5 h-5 text-orange-300" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white flex items-center justify-center shadow-xs">
+              <Sparkles className="w-5 h-5 text-amber-200" />
             </div>
             <div>
-              <div className="flex items-center gap-2 text-purple-800 font-bold text-xs uppercase tracking-wider">
-                <span>AI Skill Scoring & Verification</span>
+              <div className="flex items-center gap-2 text-orange-800 font-bold text-xs uppercase tracking-wider">
+                <span>AI Skill Assessment</span>
               </div>
               <h2 className="text-base font-extrabold text-slate-900">
-                Accredit Your Trade Skills
+                Accredit Your Skills
               </h2>
             </div>
           </div>
           <button 
             onClick={onClose} 
-            className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors"
+            className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -257,17 +257,17 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
               key={item.step} 
               className={`flex items-center gap-1.5 font-medium ${
                 currentStep === item.step 
-                  ? 'text-purple-700 font-bold' 
+                  ? 'text-orange-600 font-bold' 
                   : currentStep > item.step 
-                  ? 'text-orange-600' 
+                  ? 'text-red-500 font-semibold' 
                   : 'text-slate-400'
               }`}
             >
               <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
                 currentStep === item.step 
-                  ? 'bg-purple-600 text-white shadow-xs' 
+                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-xs' 
                   : currentStep > item.step 
-                  ? 'bg-orange-500 text-white' 
+                  ? 'bg-red-500 text-white' 
                   : 'bg-slate-200 text-slate-600'
               }`}>
                 {currentStep > item.step ? '✓' : item.step}
@@ -289,8 +289,8 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
           {/* STEP 1: Profile Image & Personal Trade Info */}
           {currentStep === 1 && (
             <div className="space-y-4">
-              <div className="p-3.5 bg-purple-50/50 border border-purple-100 rounded-xl text-xs text-purple-900 leading-relaxed">
-                Provide your personal trade details and clear profile photo. AI verifies your trade identity and indexes your skill profile.
+              <div className="p-3.5 bg-orange-50/50 border border-orange-100 rounded-xl text-xs text-orange-950 leading-relaxed">
+                Provide your basic trade details and photo. AI will score your proficiency and build your profile.
               </div>
 
               {/* Profile Photo Upload */}
@@ -300,10 +300,10 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                     <img 
                       src={profilePhoto} 
                       alt="Profile Preview" 
-                      className="w-16 h-16 rounded-xl object-cover border-2 border-purple-500 shadow-xs" 
+                      className="w-16 h-16 rounded-xl object-cover border-2 border-orange-500 shadow-xs" 
                     />
                   ) : (
-                    <div className="w-16 h-16 rounded-xl bg-purple-100 border-2 border-dashed border-purple-300 flex flex-col items-center justify-center text-purple-600">
+                    <div className="w-16 h-16 rounded-xl bg-orange-50 border-2 border-dashed border-orange-300 flex flex-col items-center justify-center text-orange-600">
                       <Camera className="w-6 h-6" />
                       <span className="text-[9px] mt-0.5 font-semibold">Photo</span>
                     </div>
@@ -312,14 +312,14 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
 
                 <div className="flex-1">
                   <label className="block text-xs font-bold text-slate-800 mb-1">
-                    Profile Image / Face Photo
+                    Profile Photo
                   </label>
                   <p className="text-[11px] text-slate-500 mb-2">
-                    Clear face photo for badge credential and facial match verification.
+                    Clear face photo for your profile card.
                   </p>
-                  <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-purple-300 hover:bg-purple-50 text-purple-700 rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-2xs">
+                  <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-orange-300 hover:bg-orange-50 text-orange-700 rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-2xs">
                     <Upload className="w-3.5 h-3.5" />
-                    <span>{profilePhoto ? 'Change Photo' : 'Upload Face Photo'}</span>
+                    <span>{profilePhoto ? 'Change Photo' : 'Upload Photo'}</span>
                     <input 
                       type="file" 
                       accept="image/*" 
@@ -331,7 +331,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                     <button 
                       type="button" 
                       onClick={() => setProfilePhoto('')}
-                      className="ml-2 text-xs text-red-500 hover:underline"
+                      className="ml-2 text-xs text-red-500 hover:underline cursor-pointer"
                     >
                       Remove
                     </button>
@@ -343,7 +343,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    Full Legal Name <span className="text-red-500">*</span>
+                    Full Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -351,7 +351,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                     placeholder="Enter full legal name"
                     value={workerName}
                     onChange={(e) => setWorkerName(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
 
@@ -365,7 +365,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                     placeholder="e.g. Electrician, Mason, Plumber, Carpenter"
                     value={tradeSkill}
                     onChange={(e) => setTradeSkill(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -383,7 +383,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                     placeholder="e.g. 4"
                     value={experienceYears}
                     onChange={(e) => setExperienceYears(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
 
@@ -396,7 +396,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                     placeholder="e.g. 950"
                     value={dailyWage}
                     onChange={(e) => setDailyWage(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
 
@@ -407,10 +407,10 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Hyderabad, Secunderabad"
+                    placeholder="e.g. Hyderabad"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -421,7 +421,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
           {currentStep === 2 && (
             <div className="space-y-4">
               <div className="p-3.5 bg-orange-50/60 border border-orange-100 rounded-xl text-xs text-orange-950 leading-relaxed">
-                Upload your official ID document for authenticity verification and background trustworthiness scoring.
+                Provide an ID document for verification and trust scoring.
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -432,7 +432,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                   <select
                     value={docType}
                     onChange={(e) => setDocType(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   >
                     <option value="Aadhaar Card">Aadhaar Card</option>
                     <option value="Voter ID">Voter ID Card</option>
@@ -451,38 +451,38 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                     placeholder="e.g. XXXX-XXXX-1234 or Voter Card No."
                     value={docTitle}
                     onChange={(e) => setDocTitle(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* ID Document File Upload Box */}
-              <div className="p-4 border-2 border-dashed border-slate-300 rounded-xl text-center bg-slate-50/70 hover:bg-purple-50/40 transition-colors">
+              <div className="p-4 border-2 border-dashed border-slate-300 rounded-xl text-center bg-slate-50/70 hover:bg-orange-50/40 transition-colors">
                 {docFileUrl ? (
-                  <div className="flex items-center justify-between p-2.5 bg-white border border-purple-200 rounded-lg shadow-2xs">
+                  <div className="flex items-center justify-between p-2.5 bg-white border border-orange-200 rounded-lg shadow-2xs">
                     <div className="flex items-center gap-2.5">
-                      <FileText className="w-5 h-5 text-purple-600 shrink-0" />
+                      <FileText className="w-5 h-5 text-orange-600 shrink-0" />
                       <div className="text-left">
                         <div className="text-xs font-bold text-slate-800 truncate max-w-xs">{docFileName || `${docType} Attached`}</div>
-                        <div className="text-[10px] text-purple-700 font-semibold">Document Ready for AI Check</div>
+                        <div className="text-[10px] text-orange-700 font-semibold">Document ready for check</div>
                       </div>
                     </div>
                     <button
                       type="button"
                       onClick={() => { setDocFileUrl(''); setDocFileName(''); }}
-                      className="p-1 text-slate-400 hover:text-red-500"
+                      className="p-1 text-slate-400 hover:text-red-500 cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 ) : (
                   <div>
-                    <FileText className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+                    <FileText className="w-8 h-8 text-orange-400 mx-auto mb-2" />
                     <div className="text-xs font-bold text-slate-700">Upload {docType} Photo or PDF</div>
-                    <p className="text-[11px] text-slate-500 mt-0.5 mb-3">Front side scan or clear phone photograph</p>
-                    <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-xs">
+                    <p className="text-[11px] text-slate-500 mt-0.5 mb-3">Front side scan or photograph</p>
+                    <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-xs">
                       <Upload className="w-3.5 h-3.5" />
-                      <span>Select ID Document File</span>
+                      <span>Select Document</span>
                       <input 
                         type="file" 
                         accept="image/*,application/pdf" 
@@ -499,17 +499,17 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
           {/* STEP 3: Vocational Trade Certificate */}
           {currentStep === 3 && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-purple-50/50 border border-purple-100 rounded-xl">
+              <div className="flex items-center justify-between p-3 bg-orange-50/50 border border-orange-100 rounded-xl">
                 <div>
-                  <div className="text-xs font-bold text-purple-900">Do you hold a trade certificate or diploma?</div>
-                  <div className="text-[11px] text-purple-700">ITI, PMKVY, Polytechnic, Apprenticeship, or Guild Credential</div>
+                  <div className="text-xs font-bold text-orange-950">Do you hold a trade certificate or diploma?</div>
+                  <div className="text-[11px] text-orange-700">ITI, PMKVY, Polytechnic, or Trade Credential</div>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => setHasCert(true)}
-                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                      hasCert ? 'bg-purple-600 text-white shadow-2xs' : 'bg-slate-200 text-slate-700'
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      hasCert ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-2xs' : 'bg-slate-200 text-slate-700'
                     }`}
                   >
                     Yes
@@ -517,11 +517,11 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setHasCert(false)}
-                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                      !hasCert ? 'bg-purple-600 text-white shadow-2xs' : 'bg-slate-200 text-slate-700'
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      !hasCert ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-2xs' : 'bg-slate-200 text-slate-700'
                     }`}
                   >
-                    No (Field Experienced)
+                    No
                   </button>
                 </div>
               </div>
@@ -534,24 +534,24 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                     </label>
                     <input
                       type="text"
-                      placeholder="e.g. ITI National Trade Certificate in Electrical Installation"
+                      placeholder="e.g. ITI Trade Certificate in Electrical Installation"
                       value={certTitle}
                       onChange={(e) => setCertTitle(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Issuing Institution / Board
+                        Issuing Institution
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g. NCVT / Skill India / State Technical Board"
+                        placeholder="e.g. NCVT / Skill India"
                         value={certIssuer}
                         onChange={(e) => setCertIssuer(e.target.value)}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                       />
                     </div>
 
@@ -564,7 +564,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                         placeholder="e.g. 2021"
                         value={certYear}
                         onChange={(e) => setCertYear(e.target.value)}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none"
                       />
                     </div>
                   </div>
@@ -572,18 +572,18 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                   {/* Certificate file attachment */}
                   <div className="p-4 border-2 border-dashed border-slate-300 rounded-xl text-center bg-slate-50/70">
                     {certFileUrl ? (
-                      <div className="flex items-center justify-between p-2.5 bg-white border border-purple-200 rounded-lg shadow-2xs">
+                      <div className="flex items-center justify-between p-2.5 bg-white border border-orange-200 rounded-lg shadow-2xs">
                         <div className="flex items-center gap-2.5">
                           <Award className="w-5 h-5 text-orange-500 shrink-0" />
                           <div className="text-left">
-                            <div className="text-xs font-bold text-slate-800 truncate max-w-xs">{certFileName || 'Certificate Document Attached'}</div>
-                            <div className="text-[10px] text-purple-700 font-semibold">Ready for AI Accreditation Scoring</div>
+                            <div className="text-xs font-bold text-slate-800 truncate max-w-xs">{certFileName || 'Certificate Attached'}</div>
+                            <div className="text-[10px] text-orange-700 font-semibold">Ready for verification</div>
                           </div>
                         </div>
                         <button
                           type="button"
                           onClick={() => { setCertFileUrl(''); setCertFileName(''); }}
-                          className="p-1 text-slate-400 hover:text-red-500"
+                          className="p-1 text-slate-400 hover:text-red-500 cursor-pointer"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -592,10 +592,10 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                       <div>
                         <Award className="w-8 h-8 text-orange-400 mx-auto mb-2" />
                         <div className="text-xs font-bold text-slate-700">Attach Certificate Scan / Photo</div>
-                        <p className="text-[11px] text-slate-500 mt-0.5 mb-3">Upload clear proof of formal qualification</p>
-                        <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-xs">
+                        <p className="text-[11px] text-slate-500 mt-0.5 mb-3">Upload qualification certificate</p>
+                        <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-xs">
                           <Upload className="w-3.5 h-3.5" />
-                          <span>Upload Certificate File</span>
+                          <span>Upload Certificate</span>
                           <input 
                             type="file" 
                             accept="image/*,application/pdf" 
@@ -610,7 +610,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
               ) : (
                 <div className="p-6 text-center border border-dashed border-slate-300 rounded-xl bg-slate-50/50">
                   <p className="text-xs text-slate-600 font-medium">
-                    No certificate required. Your practical skill will be scored directly based on your work photos, experience, and employer feedback!
+                    No certificate required. Your practical skill will be scored directly based on your work photos, experience, and employer feedback.
                   </p>
                 </div>
               )}
@@ -620,8 +620,8 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
           {/* STEP 4: Work Photos (Field Artifacts) */}
           {currentStep === 4 && (
             <div className="space-y-4">
-              <div className="p-3.5 bg-purple-50/60 border border-purple-100 rounded-xl text-xs text-purple-950 leading-relaxed">
-                Upload actual photos of your completed projects, installations, or active worksite tasks. The AI analyzes visual craftsmanship, tool usage, and precision.
+              <div className="p-3.5 bg-orange-50/60 border border-orange-100 rounded-xl text-xs text-orange-950 leading-relaxed">
+                Upload photos of your completed projects, installations, or active worksite tasks.
               </div>
 
               {/* Upload Input & Caption */}
@@ -632,16 +632,16 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Concealed conduit wiring with 16-way distribution board"
+                    placeholder="e.g. Conduit wiring with distribution board"
                     value={tempCaption}
                     onChange={(e) => setTempCaption(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
 
                 <div className="flex items-center justify-between pt-1">
                   <span className="text-[11px] text-slate-500">Attach photo of your work</span>
-                  <label className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-xs">
+                  <label className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shadow-xs">
                     <Camera className="w-3.5 h-3.5" />
                     <span>Add Work Photo</span>
                     <input 
@@ -680,7 +680,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                         <button
                           type="button"
                           onClick={() => removeWorkPhoto(index)}
-                          className="absolute top-1.5 right-1.5 p-1 bg-red-600/90 text-white rounded-md opacity-90 hover:opacity-100 transition-opacity"
+                          className="absolute top-1.5 right-1.5 p-1 bg-red-600/90 text-white rounded-md opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -701,52 +701,52 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
           {currentStep === 5 && analysisResult && (
             <div className="space-y-4 animate-in fade-in duration-300">
               {/* Score Hero Card */}
-              <div className="p-5 bg-gradient-to-br from-purple-700 to-indigo-900 text-white rounded-2xl shadow-md flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="p-5 bg-gradient-to-br from-orange-600 to-red-700 text-white rounded-2xl shadow-md flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="text-center sm:text-left">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-400 text-orange-950 text-[10px] font-extrabold uppercase tracking-wide mb-2">
-                    <Sparkles className="w-3 h-3" />
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-extrabold uppercase tracking-wide mb-2">
+                    <Sparkles className="w-3 h-3 text-amber-200" />
                     <span>{analysisResult.tier || 'Certified Specialist'}</span>
                   </div>
                   <h3 className="text-xl font-black">{workerName}</h3>
-                  <p className="text-xs text-purple-200 mt-0.5">{tradeSkill} • {city}</p>
-                  <p className="text-[11px] text-purple-100/90 mt-2 max-w-sm">
+                  <p className="text-xs text-white/80 mt-0.5">{tradeSkill} • {city}</p>
+                  <p className="text-[11px] text-white/90 mt-2 max-w-sm">
                     {analysisResult.summary}
                   </p>
                 </div>
 
                 <div className="flex flex-col items-center justify-center p-3.5 bg-white/10 backdrop-blur-xs border border-white/20 rounded-2xl min-w-28">
-                  <div className="text-3xl font-black text-orange-300">
+                  <div className="text-3xl font-black text-amber-200">
                     {analysisResult.overallScore}
                   </div>
-                  <div className="text-[10px] text-purple-200 uppercase tracking-wider font-bold">Skill Score</div>
-                  <div className="text-[9px] text-purple-300 mt-0.5">Out of 100</div>
+                  <div className="text-[10px] text-white/80 uppercase tracking-wider font-bold">Skill Score</div>
+                  <div className="text-[9px] text-white/70 mt-0.5">Out of 100</div>
                 </div>
               </div>
 
               {/* Breakdown Grid */}
               {analysisResult.breakdown && (
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                  <div className="p-3 bg-purple-50/60 border border-purple-100 rounded-xl text-center">
-                    <div className="text-xs text-purple-900 font-bold">Photo Craft</div>
-                    <div className="text-lg font-black text-purple-700 mt-0.5">
+                  <div className="p-3 bg-orange-50/60 border border-orange-100 rounded-xl text-center">
+                    <div className="text-xs text-orange-950 font-bold">Photo Craft</div>
+                    <div className="text-lg font-black text-orange-600 mt-0.5">
                       {analysisResult.breakdown.photoAssessmentScore}/25
                     </div>
                   </div>
-                  <div className="p-3 bg-purple-50/60 border border-purple-100 rounded-xl text-center">
-                    <div className="text-xs text-purple-900 font-bold">Certificate</div>
-                    <div className="text-lg font-black text-purple-700 mt-0.5">
+                  <div className="p-3 bg-orange-50/60 border border-orange-100 rounded-xl text-center">
+                    <div className="text-xs text-orange-950 font-bold">Certificate</div>
+                    <div className="text-lg font-black text-orange-600 mt-0.5">
                       {analysisResult.breakdown.certificateAuthenticityScore}/25
                     </div>
                   </div>
-                  <div className="p-3 bg-purple-50/60 border border-purple-100 rounded-xl text-center">
-                    <div className="text-xs text-purple-900 font-bold">Identity Doc</div>
-                    <div className="text-lg font-black text-purple-700 mt-0.5">
+                  <div className="p-3 bg-orange-50/60 border border-orange-100 rounded-xl text-center">
+                    <div className="text-xs text-orange-950 font-bold">Identity Doc</div>
+                    <div className="text-lg font-black text-orange-600 mt-0.5">
                       {analysisResult.breakdown.identityVerificationScore}/25
                     </div>
                   </div>
-                  <div className="p-3 bg-purple-50/60 border border-purple-100 rounded-xl text-center">
-                    <div className="text-xs text-purple-900 font-bold">Experience</div>
-                    <div className="text-lg font-black text-purple-700 mt-0.5">
+                  <div className="p-3 bg-orange-50/60 border border-orange-100 rounded-xl text-center">
+                    <div className="text-xs text-orange-950 font-bold">Experience</div>
+                    <div className="text-lg font-black text-orange-600 mt-0.5">
                       {analysisResult.breakdown.experienceCredibilityScore}/25
                     </div>
                   </div>
@@ -802,7 +802,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
 
           {currentStep === 1 && (
             <div className="text-xs text-slate-400 font-medium">
-              Step 1 of 4: Trade Identity
+              Step 1 of 4: Trade Details
             </div>
           )}
 
@@ -811,7 +811,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
               <button
                 type="button"
                 onClick={nextStep}
-                className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+                className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
               >
                 <span>Continue</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -823,7 +823,7 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
                 type="button"
                 disabled={isSubmitting}
                 onClick={runAiSkillScoring}
-                className="px-5 py-2.5 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+                className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 disabled:opacity-50 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
               >
                 {isSubmitting ? (
                   <>
@@ -843,10 +843,10 @@ export const AiSkillScoringModal: React.FC<AiSkillScoringModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+                className="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
-                <span>Save & Return to Dashboard</span>
+                <span>Save & Finish</span>
               </button>
             )}
           </div>

@@ -100,21 +100,21 @@ export const DisputeResolutionPage: React.FC = () => {
       {/* Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-700 mb-1">
-            <Scale className="w-4 h-4 text-purple-600" />
-            <span>Dispute Resolution & Fair AI Arbitration Assistance</span>
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-700 mb-1">
+            <Scale className="w-4 h-4 text-orange-600" />
+            <span>Dispute Resolution</span>
           </div>
           <h1 className="text-2xl font-black text-slate-900">
-            Fair Dispute Resolution Chamber
+            Dispute Resolution
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mt-1">
-            If an issue arises over scope, defects, or wage releases, either party can trigger formal dispute proceedings. Gemini AI objectively audits conflicting claims and contract clauses, while certified human ombudsmen issue binding settlements.
+          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mt-1">
+            Fair review for contract or wage disagreements with milestone protection and quick resolution.
           </p>
         </div>
 
         <button
           onClick={() => setIsFilingModalOpen(true)}
-          className="px-5 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer shrink-0"
+          className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer shrink-0"
         >
           <AlertTriangle className="w-4 h-4" />
           <span>Raise a Dispute</span>
@@ -123,19 +123,19 @@ export const DisputeResolutionPage: React.FC = () => {
 
       {disputes.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-xs space-y-4 max-w-xl mx-auto">
-          <div className="w-16 h-16 rounded-2xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 rounded-2xl bg-orange-50 border border-orange-200 text-orange-600 flex items-center justify-center mx-auto">
             <Scale className="w-8 h-8" />
           </div>
           <div>
             <h3 className="text-lg font-black text-slate-900">Zero Active Disputes</h3>
             <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-              All work agreements are operating harmoniously. If a contractor or worker encounters milestone or scope disagreements, complaints are lodged here for fair mediation.
+              All work agreements are active without disputes. When issues arise, cases appear here for review.
             </p>
           </div>
           <div className="flex items-center justify-center gap-3 pt-2">
             <button
               onClick={() => setIsFilingModalOpen(true)}
-              className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
             >
               File a Dispute Claim
             </button>
@@ -161,7 +161,7 @@ export const DisputeResolutionPage: React.FC = () => {
                   key={d.id}
                   onClick={() => setSelectedDispute(d)}
                   className={`p-4 rounded-xl border transition-all cursor-pointer ${selectedDispute?.id === d.id
-                      ? 'border-purple-500 bg-purple-50/50 shadow-xs'
+                      ? 'border-orange-500 bg-orange-50/50 shadow-xs'
                       : 'border-slate-200 bg-white hover:border-slate-300'
                     }`}
                 >
@@ -170,7 +170,7 @@ export const DisputeResolutionPage: React.FC = () => {
                       {d.disputeNumber}
                     </span>
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${d.status === 'resolved'
-                        ? 'bg-purple-100 text-purple-800'
+                        ? 'bg-emerald-100 text-emerald-800'
                         : 'bg-rose-100 text-rose-800'
                       }`}>
                       {d.status.replace(/_/g, ' ')}
@@ -194,8 +194,8 @@ export const DisputeResolutionPage: React.FC = () => {
               <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-100 pb-4 gap-4">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-purple-800 px-2 py-0.5 rounded bg-purple-100">
-                      Formal Mediation Case
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-orange-800 px-2 py-0.5 rounded bg-orange-100">
+                      Mediation Case
                     </span>
                     <h2 className="text-xl font-black text-slate-900 mt-1">
                       {selectedDispute.reason}
@@ -206,7 +206,7 @@ export const DisputeResolutionPage: React.FC = () => {
                   </div>
 
                   <div className="p-3 bg-orange-50 rounded-xl border border-orange-200 text-xs text-orange-900">
-                    <strong>Escrow Status:</strong> Milestone Placed in Disputed Hold
+                    <strong>Escrow Status:</strong> Milestone on Disputed Hold
                   </div>
                 </div>
 
@@ -217,19 +217,19 @@ export const DisputeResolutionPage: React.FC = () => {
                     <span>Respondent: <strong>{selectedDispute.againstName}</strong></span>
                   </div>
                   <p className="text-slate-700 leading-relaxed pt-2 border-t border-slate-200">
-                    <strong>Statement of Issue:</strong> {selectedDispute.description}
+                    <strong>Statement:</strong> {selectedDispute.description}
                   </p>
                 </div>
 
-                {/* Gemini AI Objective Analysis */}
+                {/* AI Objective Analysis */}
                 {selectedDispute.aiAnalysis && (
-                  <div className="p-5 rounded-xl bg-purple-50/40 border border-purple-200 space-y-4">
+                  <div className="p-5 rounded-xl bg-orange-50/40 border border-orange-200 space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900">
-                        <Sparkles className="w-4 h-4 text-purple-600" />
-                        <span>Gemini AI Unbiased Dispute Assessment</span>
+                        <Sparkles className="w-4 h-4 text-orange-600" />
+                        <span>AI Dispute Assessment</span>
                       </div>
-                      <span className="text-[11px] font-semibold text-purple-800 uppercase">
+                      <span className="text-[11px] font-semibold text-orange-800 uppercase">
                         Confidence: {selectedDispute.aiAnalysis.confidenceLevel || 'High'}
                       </span>
                     </div>
@@ -240,7 +240,7 @@ export const DisputeResolutionPage: React.FC = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                       <div className="p-3 bg-white rounded-lg border border-slate-200">
-                        <strong className="text-slate-900 block mb-1">Contractual Terms in Question:</strong>
+                        <strong className="text-slate-900 block mb-1">Contract Terms in Question:</strong>
                         <ul className="list-disc pl-4 space-y-1 text-slate-600">
                           {(selectedDispute.aiAnalysis.relevantAgreementTerms || []).map((c, i) => (
                             <li key={i}>{c}</li>
@@ -249,7 +249,7 @@ export const DisputeResolutionPage: React.FC = () => {
                       </div>
 
                       <div className="p-3 bg-white rounded-lg border border-slate-200">
-                        <strong className="text-slate-900 block mb-1">Arbitrator Inquiry Questions:</strong>
+                        <strong className="text-slate-900 block mb-1">Inquiry Points:</strong>
                         <ul className="list-disc pl-4 space-y-1 text-slate-600">
                           {(selectedDispute.aiAnalysis.suggestedQuestions || []).map((q, i) => (
                             <li key={i}>{q}</li>
@@ -259,7 +259,7 @@ export const DisputeResolutionPage: React.FC = () => {
                     </div>
 
                     <div className="p-3 bg-white rounded-lg border border-slate-200 text-xs">
-                      <strong className="text-slate-950 block mb-1">AI Proposed Settlement Options:</strong>
+                      <strong className="text-slate-950 block mb-1">Suggested Settlement Options:</strong>
                       <ul className="list-disc pl-4 space-y-1 text-slate-700">
                         {(selectedDispute.aiAnalysis.recommendedResolutionOptions || []).map((opt, i) => (
                           <li key={i}>{opt}</li>
@@ -269,26 +269,26 @@ export const DisputeResolutionPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* Human Arbitrator Adjudication Desk in Clean Light Theme */}
+                {/* Resolution Desk */}
                 <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 space-y-4">
                   <div className="flex items-center justify-between">
                     <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                      <Scale className="w-4 h-4 text-purple-600" />
-                      <span>Certified Ombudsman Verdict Desk</span>
+                      <Scale className="w-4 h-4 text-orange-600" />
+                      <span>Ombudsman Review Desk</span>
                     </h3>
                     {selectedDispute.status === 'resolved' && (
-                      <span className="text-xs font-bold text-purple-700">✓ Binding Verdict Issued</span>
+                      <span className="text-xs font-bold text-emerald-700">✓ Resolution Issued</span>
                     )}
                   </div>
 
                   {selectedDispute.verifierDecision ? (
-                    <div className="p-4 bg-white rounded-xl space-y-2 text-xs border border-purple-200">
-                      <div className="font-bold text-purple-700 text-sm">
+                    <div className="p-4 bg-white rounded-xl space-y-2 text-xs border border-orange-200">
+                      <div className="font-bold text-orange-700 text-sm">
                         Outcome: {selectedDispute.verifierDecision.outcome.replace(/_/g, ' ').toUpperCase()}
                       </div>
                       {selectedDispute.verifierDecision.settlementAmount && (
                         <div className="text-slate-700">
-                          Settlement Disbursed: <strong>₹{selectedDispute.verifierDecision.settlementAmount}</strong>
+                          Settlement Amount: <strong>₹{selectedDispute.verifierDecision.settlementAmount}</strong>
                         </div>
                       )}
                       <p className="text-slate-600 italic">
@@ -302,11 +302,11 @@ export const DisputeResolutionPage: React.FC = () => {
                     <div className="space-y-3 text-xs">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-slate-700 font-bold mb-1">Select Arbitrated Outcome</label>
+                          <label className="block text-slate-700 font-bold mb-1">Select Outcome</label>
                           <select
                             value={outcome}
                             onChange={e => setOutcome(e.target.value as any)}
-                            className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                            className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                           >
                             <option value="partial_settlement">Partial Settlement (Compensate completed work)</option>
                             <option value="full_release_to_worker">Full Release to Worker (No breach found)</option>
@@ -321,29 +321,29 @@ export const DisputeResolutionPage: React.FC = () => {
                             placeholder="e.g. 5000"
                             value={settlementAmount}
                             onChange={e => setSettlementAmount(e.target.value)}
-                            className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                            className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-slate-700 font-bold mb-1">Ombudsman Legal Findings</label>
+                        <label className="block text-slate-700 font-bold mb-1">Findings & Rationale</label>
                         <textarea
                           rows={2}
-                          placeholder="Summarize reasons, code inspection findings, and rationale for settlement..."
+                          placeholder="Summarize reasons and findings..."
                           value={arbitratorNotes}
                           onChange={e => setArbitratorNotes(e.target.value)}
-                          className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                          className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                         />
                       </div>
 
                       <button
                         onClick={handleResolveDispute}
                         disabled={isDeciding}
-                        className="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-xs transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
+                        className="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-xl text-xs transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
                       >
                         <Check className="w-4 h-4" />
-                        <span>Issue Binding Resolution & Disburse Escrow</span>
+                        <span>Issue Resolution & Disburse Escrow</span>
                       </button>
                     </div>
                   )}
@@ -362,14 +362,14 @@ export const DisputeResolutionPage: React.FC = () => {
       {isFilingModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-            <div className="bg-purple-900 px-6 py-4 text-white flex items-center justify-between">
+            <div className="bg-gradient-to-r from-orange-600 to-red-600 px-6 py-4 text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-orange-400" />
+                <AlertTriangle className="w-5 h-5 text-white" />
                 <h3 className="font-bold text-base">File Work Dispute</h3>
               </div>
               <button
                 onClick={() => setIsFilingModalOpen(false)}
-                className="p-1 rounded hover:bg-purple-800 cursor-pointer"
+                className="p-1 rounded hover:bg-white/20 cursor-pointer text-white"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -381,7 +381,7 @@ export const DisputeResolutionPage: React.FC = () => {
                 <select
                   value={reason}
                   onChange={e => setReason(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 >
                   <option value="Scope Disagreement & Additional Unpaid Work Requested">Scope Disagreement & Additional Work Requested</option>
                   <option value="Milestone Payment Unreasonably Withheld">Milestone Payment Withheld Despite Completion</option>
@@ -391,19 +391,19 @@ export const DisputeResolutionPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Detailed Facts & Specifics</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Details & Specifics</label>
                 <textarea
                   rows={4}
                   required
-                  placeholder="Explain exactly what occurred, deliverables provided, or why payment was withheld..."
+                  placeholder="Explain what occurred, deliverables provided, or why payment was withheld..."
                   value={description}
                   onChange={e => setDescription(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
               <div className="p-3 bg-orange-50 rounded-xl border border-orange-200 text-xs text-orange-900 leading-relaxed">
-                Filing will place the active agreement and associated milestone escrow into protective hold while Gemini AI assesses claims.
+                Filing will place the active agreement and milestone escrow into hold while claims are reviewed.
               </div>
 
               <div className="flex justify-end gap-2 pt-2">
@@ -417,10 +417,10 @@ export const DisputeResolutionPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isFiling}
-                  className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
+                  className="px-5 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
                 >
                   {isFiling ? <Loader2 className="w-4 h-4 animate-spin" /> : <Scale className="w-4 h-4" />}
-                  <span>Submit to Ombudsman Desk</span>
+                  <span>Submit Dispute</span>
                 </button>
               </div>
             </form>

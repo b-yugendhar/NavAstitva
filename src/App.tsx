@@ -30,24 +30,24 @@ function UnauthorizedNotice({
   onRedirect: () => void 
 }) {
   return (
-    <div className="max-w-md mx-auto my-12 p-8 bg-white rounded-2xl border border-purple-200 shadow-xs text-center space-y-4">
+    <div className="max-w-md mx-auto my-12 p-8 bg-white rounded-2xl border border-orange-200 shadow-xs text-center space-y-4">
       <div className="w-12 h-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center mx-auto">
         <ShieldAlert className="w-6 h-6" />
       </div>
-      <h2 className="text-xl font-black text-slate-900">Role Authorization Required</h2>
+      <h2 className="text-xl font-black text-slate-900">Access Restricted</h2>
       <p className="text-xs text-slate-600 leading-relaxed">
-        This section is reserved for <strong>{requiredRole}</strong> accounts. 
+        This section is for <strong>{requiredRole}</strong> accounts.
         {currentRole ? (
-          <> You are currently signed in as a <span className="capitalize font-semibold text-purple-700">{currentRole.replace('_', ' ')}</span>.</>
+          <> You are signed in as <span className="capitalize font-semibold text-orange-600">{currentRole.replace('_', ' ')}</span>.</>
         ) : (
-          <> Please sign in with an authorized account to access this tool.</>
+          <> Please sign in to access this page.</>
         )}
       </p>
       <button
         onClick={onRedirect}
-        className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs inline-flex items-center gap-2 cursor-pointer"
+        className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl text-xs font-bold transition-all shadow-xs inline-flex items-center gap-2 cursor-pointer"
       >
-        <span>Return to Dashboard</span>
+        <span>Go to Dashboard</span>
         <ArrowRight className="w-4 h-4" />
       </button>
     </div>
@@ -157,7 +157,7 @@ function MainAppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 selection:bg-purple-200">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 selection:bg-orange-200 selection:text-orange-950">
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
@@ -174,20 +174,20 @@ function MainAppContent() {
         onClose={() => setVoiceModalOpen(false)} 
       />
 
-      {/* Clean Footer */}
-      <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 py-8 px-4 text-xs text-center">
+      {/* Clean Simplified Footer */}
+      <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 px-4 text-xs">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-extrabold text-white text-sm">NavAstitva</span>
+            <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400 text-sm">NavAstitva</span>
             <span>—</span>
-            <span className="text-slate-300">Turning Verified Skills into Trust. Guaranteed Escrow Milestone Payouts.</span>
+            <span className="text-slate-300">Skilled Employment Ecosystem</span>
           </div>
           <div className="flex items-center gap-4 text-slate-400">
-            <span>9 Official Indian Languages</span>
+            <span>Verified Skills</span>
             <span>•</span>
-            <span>NSDC Vocational Alignment</span>
+            <span>Milestone Escrow</span>
             <span>•</span>
-            <span>Milestone Escrow Protection</span>
+            <span>Direct Hiring</span>
           </div>
         </div>
       </footer>

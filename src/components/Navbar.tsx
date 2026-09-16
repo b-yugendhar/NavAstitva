@@ -115,49 +115,26 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-2xs">
-        {/* Top Micro Bar: Clean, Crisp Light Styling */}
-        <div className="bg-slate-50 border-b border-slate-200 text-slate-700 text-xs px-4 py-2 flex flex-wrap items-center justify-between gap-2">
-          {/* Left: Platform Status & Live Database Control */}
+        {/* Top Micro Bar: Clean, Minimal Styling */}
+        <div className="bg-slate-50 border-b border-slate-200 text-slate-700 text-xs px-4 py-1.5 flex flex-wrap items-center justify-between gap-2">
+          {/* Left: Platform Status & Quick Seed */}
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
-              <span className="inline-block w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
-              <span className="font-semibold text-slate-800">NavAstitva Digital Ecosystem</span>
+              <span className="inline-block w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+              <span className="font-bold text-slate-900">NavAstitva</span>
+              <span className="text-slate-500 text-[11px] hidden sm:inline">• Verified Skills & Milestone Escrow</span>
             </div>
 
-            <span className="text-slate-300 hidden sm:inline">|</span>
-
-            {/* Database Empty vs Seed Control */}
-            <div className="flex items-center gap-1.5 text-[11px]">
-              <Database className="w-3.5 h-3.5 text-slate-500" />
-              <span className="text-slate-600 font-medium">
-                Data: {dbStatus?.isEmpty ? (
-                  <span className="text-orange-600 font-bold">Empty Slate</span>
-                ) : (
-                  <span className="text-purple-700 font-bold">Active ({dbStatus?.jobsCount || 0} jobs)</span>
-                )}
-              </span>
-
-              {dbStatus?.isEmpty ? (
-                <button
-                  onClick={seedDatabaseDemo}
-                  disabled={isLoading}
-                  className="ml-1 px-2 py-0.5 rounded bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold transition-colors cursor-pointer"
-                  title="Populate clean demo data"
-                >
-                  Load Sample Data
-                </button>
-              ) : (
-                <button
-                  onClick={resetDatabaseEmpty}
-                  disabled={isLoading}
-                  className="ml-1 px-2 py-0.5 rounded bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium transition-colors cursor-pointer flex items-center gap-1"
-                  title="Clear all records to start completely fresh"
-                >
-                  <RefreshCw className="w-3 h-3" />
-                  <span>Start Fresh (Empty)</span>
-                </button>
-              )}
-            </div>
+            {dbStatus?.isEmpty && (
+              <button
+                onClick={seedDatabaseDemo}
+                disabled={isLoading}
+                className="ml-2 px-2 py-0.5 rounded-md bg-orange-100 hover:bg-orange-200 text-orange-800 font-bold text-[11px] transition-colors cursor-pointer"
+                title="Populate demo data"
+              >
+                Load Sample Data
+              </button>
+            )}
           </div>
 
           {/* Right: User Authentication & Role Indicator */}
@@ -176,18 +153,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
               <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 px-2.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shadow-2xs transition-colors"
+                  className="flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 px-2.5 py-1 rounded-lg text-xs font-semibold cursor-pointer shadow-2xs transition-colors"
                 >
                   <img 
                     src={currentUser.avatarUrl} 
                     alt={currentUser.name} 
-                    className="w-5 h-5 rounded-full object-cover border border-purple-200" 
+                    className="w-5 h-5 rounded-full object-cover border border-orange-200" 
                   />
                   <span className="max-w-[120px] truncate">{currentUser.name}</span>
                   <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold uppercase ${
-                    currentUser.role === 'worker' ? 'bg-purple-100 text-purple-800' :
-                    currentUser.role === 'employer' ? 'bg-orange-100 text-orange-800' :
-                    currentUser.role === 'admin' ? 'bg-indigo-100 text-indigo-800' :
+                    currentUser.role === 'worker' ? 'bg-orange-100 text-orange-800' :
+                    currentUser.role === 'employer' ? 'bg-red-100 text-red-800' :
                     'bg-slate-100 text-slate-800'
                   }`}>
                     {currentUser.role === 'admin' ? 'Assessor' : currentUser.role.replace('_', ' ')}
@@ -202,7 +178,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
                       <div className="font-bold text-slate-900 text-xs">{currentUser.name}</div>
                       <div className="text-[11px] text-slate-500 truncate">{currentUser.email || currentUser.phone}</div>
                       <div className="mt-1">
-                        <span className="text-[10px] bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded font-semibold capitalize">
+                        <span className="text-[10px] bg-orange-50 text-orange-700 px-1.5 py-0.5 rounded font-semibold capitalize">
                           Role: {currentUser.role.replace('_', ' ')}
                         </span>
                       </div>
@@ -216,15 +192,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
                         }}
                         className="w-full text-left px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 font-medium flex items-center gap-2 cursor-pointer"
                       >
-                        <Briefcase className="w-3.5 h-3.5 text-purple-600" />
+                        <Briefcase className="w-3.5 h-3.5 text-orange-600" />
                         <span>My Dashboard</span>
                       </button>
 
                       <button
                         onClick={() => handleOpenAuth('signup')}
-                        className="w-full text-left px-3 py-2 text-xs text-purple-700 hover:bg-purple-50 font-medium flex items-center gap-2 cursor-pointer"
+                        className="w-full text-left px-3 py-2 text-xs text-orange-700 hover:bg-orange-50 font-medium flex items-center gap-2 cursor-pointer"
                       >
-                        <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+                        <Sparkles className="w-3.5 h-3.5 text-orange-600" />
                         <span>Switch / Register New Account</span>
                       </button>
                     </div>
@@ -249,14 +225,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleOpenAuth('signin')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold text-xs cursor-pointer shadow-2xs transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold text-xs cursor-pointer shadow-2xs transition-colors"
                 >
                   <LogIn className="w-3.5 h-3.5 text-slate-600" />
                   <span>Sign In</span>
                 </button>
                 <button
                   onClick={() => handleOpenAuth('signup')}
-                  className="px-3 py-1.5 rounded-lg bg-purple-600 text-white hover:bg-purple-700 font-bold text-xs cursor-pointer shadow-2xs transition-colors"
+                  className="px-3 py-1 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 font-bold text-xs cursor-pointer shadow-2xs transition-colors"
                 >
                   Create Account
                 </button>
@@ -274,18 +250,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
               className="flex items-center gap-3 cursor-pointer group"
               id="brand-logo"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-orange-500 flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500 to-red-600 flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-xl font-black tracking-tight text-slate-900">NavAstitva</span>
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
-                    Trusted Skill Platform
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-orange-100 text-orange-800 border border-orange-200">
+                    Verified
                   </span>
                 </div>
                 <p className="text-[11px] font-semibold text-slate-500 hidden sm:block">
-                  Verified Skills • Guaranteed Escrow • Fair Opportunities
+                  Verified Skills • Simple Contracts • Escrow
                 </p>
               </div>
             </div>
@@ -301,7 +277,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
                     onClick={() => setActiveTab(link.id)}
                     className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                       isActive 
-                        ? 'bg-purple-600 text-white shadow-xs' 
+                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-xs' 
                         : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                   >
@@ -319,10 +295,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
                 onClick={onOpenVoiceModal}
                 id="voice-assistant-trigger"
                 className="flex items-center gap-1.5 px-3 py-2 bg-orange-50 hover:bg-orange-100 text-orange-800 rounded-xl text-xs font-bold border border-orange-200 transition-colors cursor-pointer"
-                title="Speak or ask AI in any of 9 Indian languages"
+                title="Speak or ask AI in any language"
               >
-                <Mic className="w-4 h-4 text-orange-600 animate-pulse" />
-                <span className="hidden sm:inline">Voice & AI</span>
+                <Mic className="w-4 h-4 text-red-500 animate-pulse" />
+                <span className="hidden sm:inline">Voice Assistant</span>
               </button>
 
               {/* Language Selector (9 Languages) */}
@@ -343,7 +319,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
                     className="absolute right-0 mt-1 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 max-h-80 overflow-y-auto"
                   >
                     <div className="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                      Select Language (9 Languages)
+                      Select Language
                     </div>
                     {SUPPORTED_LANGUAGES.map((lang) => (
                       <button
@@ -353,7 +329,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
                           setLangMenuOpen(false);
                         }}
                         className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-slate-50 cursor-pointer ${
-                          language === lang.code ? 'bg-purple-50 text-purple-900 font-bold' : 'text-slate-700'
+                          language === lang.code ? 'bg-orange-50 text-orange-900 font-bold' : 'text-slate-700'
                         }`}
                       >
                         <span>{lang.nativeName}</span>
@@ -411,7 +387,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
                     setMobileMenuOpen(false);
                     handleOpenAuth('signup');
                   }}
-                  className="flex-1 text-center py-2 text-xs font-bold bg-purple-600 rounded-lg text-white"
+                  className="flex-1 text-center py-2 text-xs font-bold bg-gradient-to-r from-orange-500 to-red-500 rounded-lg text-white"
                 >
                   Create Account
                 </button>
@@ -428,7 +404,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenV
                   }}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold cursor-pointer ${
                     activeTab === link.id 
-                      ? 'bg-purple-600 text-white' 
+                      ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white' 
                       : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >

@@ -95,32 +95,32 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
     <div className="space-y-8 pb-12">
       {/* Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-700 mb-1">
-          <Sparkles className="w-4 h-4 text-purple-600" />
-          <span>Candidate Matching & Talent Selection</span>
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-700 mb-1">
+          <Sparkles className="w-4 h-4 text-orange-600" />
+          <span>Candidate Matching</span>
         </div>
         <h1 className="text-2xl font-black text-slate-900">
-          Ranked Candidate Matching Engine
+          Ranked Candidate Matching
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mt-1">
-          Review candidates ranked by objective compatibility. Every ranking transparently explains skill alignment, distance proximity, wage match, and verified Trust Scores.
+        <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mt-1">
+          Review candidates ranked by skill alignment, distance proximity, and verified Trust Scores.
         </p>
       </div>
 
       {jobs.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-xs space-y-4 max-w-xl mx-auto">
-          <div className="w-16 h-16 rounded-2xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 rounded-2xl bg-orange-50 border border-orange-200 text-orange-600 flex items-center justify-center mx-auto">
             <Briefcase className="w-8 h-8" />
           </div>
           <div>
             <h3 className="text-lg font-black text-slate-900">No Jobs Available for Matching</h3>
             <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-              Post a job requirement in the Marketplace first to match verified artisans and trade professionals.
+              Post a job in the Marketplace to start matching verified candidates.
             </p>
           </div>
           <button
             onClick={() => onNavigate('jobs')}
-            className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             Go to Job Marketplace
           </button>
@@ -136,7 +136,7 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
                   key={job.id}
                   onClick={() => handleSelectJob(job)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${selectedJob?.id === job.id
-                      ? 'bg-purple-600 text-white shadow-xs'
+                      ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-xs'
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                 >
@@ -149,7 +149,7 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
           {/* Candidates List */}
           {rankedCandidates.length === 0 ? (
             <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center shadow-xs text-slate-600 text-xs">
-              No candidates matching this specific trade profile yet. Candidates will stream in as workers register or update skills.
+              No candidates matching this trade profile yet. Candidates will appear as workers register.
             </div>
           ) : (
             <div className="space-y-4">
@@ -163,9 +163,9 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
                       <img
                         src={cand.worker.avatarUrl}
                         alt={cand.worker.fullName}
-                        className="w-16 h-16 rounded-2xl object-cover border-2 border-purple-400 shadow-xs"
+                        className="w-16 h-16 rounded-2xl object-cover border-2 border-orange-400 shadow-xs"
                       />
-                      <span className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-black shadow-xs">
+                      <span className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white flex items-center justify-center text-xs font-black shadow-xs">
                         #{idx + 1}
                       </span>
                     </div>
@@ -173,11 +173,11 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
                     <div className="space-y-1.5">
                       <div className="flex items-center gap-2 flex-wrap">
                         <h3 className="text-base font-black text-slate-900">{cand.worker.fullName}</h3>
-                        <span className="px-2 py-0.5 rounded-md bg-purple-100 text-purple-800 text-xs font-bold flex items-center gap-1">
+                        <span className="px-2 py-0.5 rounded-md bg-orange-100 text-orange-800 text-xs font-bold flex items-center gap-1">
                           <Award className="w-3.5 h-3.5" />
                           Trust Score: {cand.worker.trustScore}
                         </span>
-                        <span className="px-2 py-0.5 rounded-md bg-orange-100 text-orange-800 text-xs font-bold">
+                        <span className="px-2 py-0.5 rounded-md bg-red-100 text-red-800 text-xs font-bold">
                           {cand.worker.experienceYears}+ Years Exp.
                         </span>
                       </div>
@@ -196,11 +196,11 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
                           <span
                             key={i}
                             className={`text-[11px] px-2 py-0.5 rounded font-semibold ${s.isVerified
-                                ? 'bg-purple-50 text-purple-800 border border-purple-200 flex items-center gap-1'
+                                ? 'bg-orange-50 text-orange-800 border border-orange-200 flex items-center gap-1'
                                 : 'bg-slate-100 text-slate-600'
                               }`}
                           >
-                            {s.isVerified && <ShieldCheck className="w-3 h-3 text-purple-600" />}
+                            {s.isVerified && <ShieldCheck className="w-3 h-3 text-orange-600" />}
                             {s.name}
                           </span>
                         ))}
@@ -210,18 +210,18 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
 
                   {/* Compatibility Score Card */}
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full lg:w-auto justify-between border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-100">
-                    <div className="bg-purple-50/70 border border-purple-200 rounded-xl p-3 min-w-[180px]">
+                    <div className="bg-orange-50/70 border border-orange-200 rounded-xl p-3 min-w-[180px]">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-[11px] font-bold text-purple-800 uppercase tracking-wider">
+                        <span className="text-[11px] font-bold text-orange-800 uppercase tracking-wider">
                           Overall Match
                         </span>
-                        <span className="text-sm font-black text-purple-900">
+                        <span className="text-sm font-black text-orange-900">
                           {cand.matchDetails.totalScore}%
                         </span>
                       </div>
                       <div className="w-full bg-white rounded-full h-1.5 overflow-hidden mb-2">
                         <div
-                          className="bg-purple-600 h-full rounded-full"
+                          className="bg-gradient-to-r from-orange-500 to-red-500 h-full rounded-full"
                           style={{ width: `${cand.matchDetails.totalScore}%` }}
                         ></div>
                       </div>
@@ -232,7 +232,7 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
 
                     <button
                       onClick={() => handleOpenAgreement(cand)}
-                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
                     >
                       <span>Issue Contract</span>
                       <ArrowRight className="w-4 h-4" />
@@ -251,7 +251,7 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
             <div className="bg-slate-50 border-b border-slate-200 px-6 py-4 text-slate-900 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-purple-600" />
+                <FileText className="w-5 h-5 text-orange-600" />
                 <h3 className="font-bold text-base">Generate Digital Work Contract</h3>
               </div>
               <button
@@ -263,8 +263,8 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
             </div>
 
             <form onSubmit={handleCreateAgreement} className="p-6 space-y-4">
-              <div className="p-3 bg-purple-50 rounded-xl border border-purple-200 text-xs text-purple-900 leading-relaxed">
-                <strong>Bilateral Work Contract:</strong> Terms, wages, milestone deliverables, and escrow commitments will be legally recorded on the platform.
+              <div className="p-3 bg-orange-50 rounded-xl border border-orange-200 text-xs text-orange-900 leading-relaxed">
+                <strong>Work Contract:</strong> Terms, wages, milestone deliverables, and escrow commitments will be saved to your dashboard.
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs">
@@ -287,7 +287,7 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
                     placeholder="e.g. 1000"
                     value={wage}
                     onChange={e => setWage(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -298,7 +298,7 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
                     placeholder="e.g. 10 Days"
                     value={duration}
                     onChange={e => setDuration(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -310,7 +310,7 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
                   required
                   value={startDate}
                   onChange={e => setStartDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -322,7 +322,7 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
                   placeholder="Specify task deliverables, safety standards, and completion benchmarks..."
                   value={scope}
                   onChange={e => setScope(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -337,7 +337,7 @@ export const CandidateMatchingPage: React.FC<CandidateMatchingPageProps> = ({ on
                 <button
                   type="submit"
                   disabled={isCreatingAgreement}
-                  className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
+                  className="px-5 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
                 >
                   {isCreatingAgreement ? 'Generating Contract...' : 'Create & Issue Contract'}
                 </button>

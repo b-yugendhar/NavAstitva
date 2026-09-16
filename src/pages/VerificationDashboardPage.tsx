@@ -61,32 +61,32 @@ export const VerificationDashboardPage: React.FC = () => {
     <div className="space-y-8 pb-12">
       {/* Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-700 mb-1">
-          <ShieldCheck className="w-4 h-4 text-purple-600" />
-          <span>Verification & Assessment (Human Oversight Desk)</span>
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-700 mb-1">
+          <ShieldCheck className="w-4 h-4 text-orange-600" />
+          <span>Skill Verification Desk</span>
         </div>
         <h1 className="text-2xl font-black text-slate-900">
-          Certified Skill Verification Portal
+          Skill Verification
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mt-1">
-          Review evidence artifacts submitted by workers. AI provides technical analysis and confidence indicators, but human certified assessors maintain sovereign authority over skill certification and Trust Score calculation.
+        <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mt-1">
+          Review skill evidence artifacts with automated analysis and verify worker certifications.
         </p>
       </div>
 
       {requests.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-xs space-y-4 max-w-xl mx-auto">
-          <div className="w-16 h-16 rounded-2xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 rounded-2xl bg-orange-50 border border-orange-200 text-orange-600 flex items-center justify-center mx-auto">
             <Inbox className="w-8 h-8" />
           </div>
           <div>
-            <h3 className="text-lg font-black text-slate-900">Assessor Review Queue is Empty</h3>
+            <h3 className="text-lg font-black text-slate-900">Queue is Empty</h3>
             <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-              No vocational skill credentials currently require evaluation. As workers upload site photos or diplomas in Evidence Submission, they will appear here.
+              No vocational skill credentials currently require evaluation. Submissions will appear here.
             </p>
           </div>
           <button
             onClick={seedDatabaseDemo}
-            className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             Load Sample Verification Queue
           </button>
@@ -107,18 +107,18 @@ export const VerificationDashboardPage: React.FC = () => {
                   onClick={() => setSelectedReq(req)}
                   className={`p-4 rounded-xl border transition-all cursor-pointer ${
                     selectedReq?.id === req.id
-                      ? 'border-purple-500 bg-purple-50/50 shadow-xs'
+                      ? 'border-orange-500 bg-orange-50/50 shadow-xs'
                       : 'border-slate-200 bg-white hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
                       <h3 className="font-bold text-xs sm:text-sm text-slate-900">{req.workerName}</h3>
-                      <div className="text-xs font-bold text-purple-800">{req.skillName}</div>
+                      <div className="text-xs font-bold text-orange-800">{req.skillName}</div>
                     </div>
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                       req.status === 'approved' 
-                        ? 'bg-purple-100 text-purple-800'
+                        ? 'bg-emerald-100 text-emerald-800'
                         : req.status === 'rejected'
                         ? 'bg-red-100 text-red-800'
                         : 'bg-orange-100 text-orange-800'
@@ -128,7 +128,7 @@ export const VerificationDashboardPage: React.FC = () => {
                   </div>
 
                   <div className="flex items-center justify-between text-[11px] text-slate-500 mt-2">
-                    <span className="flex items-center gap-1 font-semibold text-purple-700">
+                    <span className="flex items-center gap-1 font-semibold text-orange-700">
                       <Sparkles className="w-3 h-3" />
                       AI Confidence: {req.aiConfidence}%
                     </span>
@@ -156,34 +156,34 @@ export const VerificationDashboardPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-purple-50 border border-purple-200 text-right">
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-purple-700">AI Confidence</div>
-                    <div className="text-2xl font-black text-purple-950">{selectedReq.aiConfidence}%</div>
+                  <div className="p-3 rounded-xl bg-orange-50 border border-orange-200 text-right">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-orange-700">AI Confidence</div>
+                    <div className="text-2xl font-black text-orange-950">{selectedReq.aiConfidence}%</div>
                   </div>
                 </div>
 
                 {/* AI Summary Box */}
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
-                    <Sparkles className="w-4 h-4 text-purple-600" />
-                    <span>Gemini AI Automated Assessment</span>
+                    <Sparkles className="w-4 h-4 text-orange-600" />
+                    <span>AI Automated Assessment</span>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    {selectedReq.aiSummary || 'The AI found consistent evidence of skill execution matching IS standards.'}
+                    {selectedReq.aiSummary || 'Automated analysis verified evidence against standard technical criteria.'}
                   </p>
                 </div>
 
                 {/* Verifier Feedback Form */}
                 <div className="space-y-3">
                   <label className="block text-xs font-bold text-slate-700">
-                    Assessor Evaluation Notes & Justification
+                    Assessor Notes & Remarks
                   </label>
                   <textarea
                     rows={3}
                     value={notes}
                     onChange={e => setNotes(e.target.value)}
-                    placeholder="Enter official assessor justification for the digital certificate..."
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    placeholder="Enter assessor remarks or review notes..."
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
 
@@ -208,15 +208,15 @@ export const VerificationDashboardPage: React.FC = () => {
                   <button
                     onClick={() => handleDecision('approved')}
                     disabled={isProcessing}
-                    className="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                   >
                     <CheckCheck className="w-4 h-4" />
-                    <span>Approve & Issue Verified Badge</span>
+                    <span>Approve & Issue Badge</span>
                   </button>
                 </div>
 
                 {selectedReq.reviewedAt && (
-                  <div className="p-3 bg-purple-50 rounded-xl border border-purple-200 text-xs text-purple-900">
+                  <div className="p-3 bg-orange-50 rounded-xl border border-orange-200 text-xs text-orange-900">
                     <strong>Decision Recorded:</strong> Reviewed by {selectedReq.reviewedBy} on {new Date(selectedReq.reviewedAt).toLocaleDateString()}. Status: <span className="font-bold uppercase">{selectedReq.status}</span>.
                   </div>
                 )}

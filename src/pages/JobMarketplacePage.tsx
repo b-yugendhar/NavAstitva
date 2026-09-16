@@ -134,21 +134,21 @@ export const JobMarketplacePage: React.FC = () => {
       {/* Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-700 mb-1">
-            <Sparkles className="w-4 h-4 text-purple-600" />
-            <span>Intelligent Job Matching & Marketplace</span>
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-700 mb-1">
+            <Sparkles className="w-4 h-4 text-orange-600" />
+            <span>Job Marketplace</span>
           </div>
           <h1 className="text-2xl font-black text-slate-900">
-            Explore Verified Employment Opportunities
+            Verified Job Opportunities
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mt-1">
-            Jobs posted by vetted contractors and enterprises. The platform automatically calculates your AI Match Score based on skills (40%), experience (20%), location proximity (15%), availability (15%), and wage alignment (10%).
+          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mt-1">
+            Browse verified listings matched to your trade skills, location, and preferred wage rates.
           </p>
         </div>
 
         <button
           onClick={() => setIsPostJobOpen(true)}
-          className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-2 shrink-0 cursor-pointer"
+          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-2 shrink-0 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Post a Job</span>
@@ -164,7 +164,7 @@ export const JobMarketplacePage: React.FC = () => {
             placeholder="Search by trade (electrician, solar, plumbing, welding)..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-900"
+            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 text-slate-900"
           />
         </div>
 
@@ -194,19 +194,19 @@ export const JobMarketplacePage: React.FC = () => {
       {/* Empty State */}
       {jobs.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-xs space-y-4 max-w-xl mx-auto">
-          <div className="w-16 h-16 rounded-2xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 rounded-2xl bg-orange-50 border border-orange-200 text-orange-600 flex items-center justify-center mx-auto">
             <Briefcase className="w-8 h-8" />
           </div>
           <div>
             <h3 className="text-lg font-black text-slate-900">No Job Listings Found</h3>
             <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-              There are currently no active job postings matching your filter criteria. You can post a new job in seconds or populate sample operational listings.
+              There are currently no active job postings matching your filter criteria.
             </p>
           </div>
           <div className="flex items-center justify-center gap-3 pt-2">
             <button
               onClick={() => setIsPostJobOpen(true)}
-              className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" />
               <span>Post First Job</span>
@@ -231,13 +231,13 @@ export const JobMarketplacePage: React.FC = () => {
                 <div className="flex items-center justify-between mb-2.5">
                   <button
                     onClick={() => handleInspectMatch(job)}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-800 text-xs font-bold hover:bg-purple-100 transition-colors cursor-pointer"
-                    title="Click to see transparent formula breakdown"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200 text-orange-800 text-xs font-bold hover:bg-orange-100 transition-colors cursor-pointer"
+                    title="View match breakdown"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+                    <Sparkles className="w-3.5 h-3.5 text-orange-600" />
                     <span>AI Match Available</span>
                   </button>
-                  <span className="text-xs font-bold text-orange-600">
+                  <span className="text-xs font-bold text-red-600">
                     ₹{job.wage} / {job.wageType}
                   </span>
                 </div>
@@ -285,9 +285,9 @@ export const JobMarketplacePage: React.FC = () => {
                       setSelectedJobForApply(job);
                       setProposedWage(String(job.wage));
                     }}
-                    className="flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer text-center"
+                    className="flex-1 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-xs font-bold transition-all shadow-xs cursor-pointer text-center"
                   >
-                    Apply with Trust Profile
+                    Apply Now
                   </button>
                 </div>
               </div>
@@ -302,8 +302,8 @@ export const JobMarketplacePage: React.FC = () => {
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
             <div className="bg-slate-50 border-b border-slate-200 px-6 py-4 text-slate-900 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-purple-600" />
-                <h3 className="font-bold text-base">Explainable AI Match Breakdown</h3>
+                <Sparkles className="w-5 h-5 text-orange-600" />
+                <h3 className="font-bold text-base">Match Breakdown</h3>
               </div>
               <button 
                 onClick={() => setInspectingMatchJob(null)}
@@ -314,12 +314,12 @@ export const JobMarketplacePage: React.FC = () => {
             </div>
 
             <div className="p-6 space-y-5">
-              <div className="flex items-center justify-between p-4 bg-purple-50 rounded-2xl border border-purple-100">
+              <div className="flex items-center justify-between p-4 bg-orange-50 rounded-2xl border border-orange-200">
                 <div>
-                  <div className="text-xs font-bold text-purple-800 uppercase tracking-wider">Overall Score</div>
-                  <div className="text-3xl font-black text-purple-950">{matchDetails.score}% Match</div>
+                  <div className="text-xs font-bold text-orange-800 uppercase tracking-wider">Overall Score</div>
+                  <div className="text-3xl font-black text-orange-950">{matchDetails.score}% Match</div>
                 </div>
-                <div className="text-right text-xs text-purple-900">
+                <div className="text-right text-xs text-orange-900">
                   <div><strong>Worker:</strong> {matchDetails.workerName}</div>
                   <div><strong>Role:</strong> {inspectingMatchJob.title}</div>
                 </div>
@@ -328,7 +328,7 @@ export const JobMarketplacePage: React.FC = () => {
               {/* 5-Factor Formula Breakdown */}
               <div className="space-y-3 text-xs">
                 <div className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">
-                  Transparent Multi-Factor Alignment
+                  Multi-Factor Alignment
                 </div>
 
                 <div className="space-y-2">
@@ -338,7 +338,7 @@ export const JobMarketplacePage: React.FC = () => {
                       <strong>{matchDetails.breakdown.skillMatch}%</strong>
                     </div>
                     <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                      <div className="bg-purple-600 h-full rounded-full" style={{ width: `${matchDetails.breakdown.skillMatch}%` }}></div>
+                      <div className="bg-orange-600 h-full rounded-full" style={{ width: `${matchDetails.breakdown.skillMatch}%` }}></div>
                     </div>
                   </div>
 
@@ -348,7 +348,7 @@ export const JobMarketplacePage: React.FC = () => {
                       <strong>{matchDetails.breakdown.experienceMatch}%</strong>
                     </div>
                     <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                      <div className="bg-orange-500 h-full rounded-full" style={{ width: `${matchDetails.breakdown.experienceMatch}%` }}></div>
+                      <div className="bg-red-500 h-full rounded-full" style={{ width: `${matchDetails.breakdown.experienceMatch}%` }}></div>
                     </div>
                   </div>
 
@@ -358,7 +358,7 @@ export const JobMarketplacePage: React.FC = () => {
                       <strong>{matchDetails.breakdown.locationMatch}%</strong>
                     </div>
                     <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                      <div className="bg-amber-600 h-full rounded-full" style={{ width: `${matchDetails.breakdown.locationMatch}%` }}></div>
+                      <div className="bg-orange-500 h-full rounded-full" style={{ width: `${matchDetails.breakdown.locationMatch}%` }}></div>
                     </div>
                   </div>
 
@@ -368,7 +368,7 @@ export const JobMarketplacePage: React.FC = () => {
                       <strong>{matchDetails.breakdown.availabilityMatch}%</strong>
                     </div>
                     <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                      <div className="bg-indigo-600 h-full rounded-full" style={{ width: `${matchDetails.breakdown.availabilityMatch}%` }}></div>
+                      <div className="bg-amber-500 h-full rounded-full" style={{ width: `${matchDetails.breakdown.availabilityMatch}%` }}></div>
                     </div>
                   </div>
 
@@ -378,7 +378,7 @@ export const JobMarketplacePage: React.FC = () => {
                       <strong>{matchDetails.breakdown.wageMatch}%</strong>
                     </div>
                     <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                      <div className="bg-rose-600 h-full rounded-full" style={{ width: `${matchDetails.breakdown.wageMatch}%` }}></div>
+                      <div className="bg-red-600 h-full rounded-full" style={{ width: `${matchDetails.breakdown.wageMatch}%` }}></div>
                     </div>
                   </div>
                 </div>
@@ -407,7 +407,7 @@ export const JobMarketplacePage: React.FC = () => {
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
             <div className="bg-slate-50 border-b border-slate-200 px-6 py-4 text-slate-900 flex items-center justify-between">
               <div>
-                <h3 className="font-bold text-base">Apply with NavAstitva Trust Profile</h3>
+                <h3 className="font-bold text-base">Apply for Position</h3>
                 <p className="text-xs text-slate-500">{selectedJobForApply.title}</p>
               </div>
               <button 
@@ -421,15 +421,15 @@ export const JobMarketplacePage: React.FC = () => {
             <form onSubmit={handleApply} className="p-6 space-y-4">
               {applySuccess ? (
                 <div className="p-6 text-center space-y-2">
-                  <CheckCircle2 className="w-12 h-12 text-purple-600 mx-auto" />
+                  <CheckCircle2 className="w-12 h-12 text-orange-600 mx-auto" />
                   <h4 className="font-bold text-base text-slate-900">Application Submitted!</h4>
                   <p className="text-xs text-slate-600">
-                    Your verified skills and Trust Score have been sent to {selectedJobForApply.employerName}.
+                    Your application has been sent to {selectedJobForApply.employerName}.
                   </p>
                 </div>
               ) : (
                 <>
-                  <div className="p-3 bg-purple-50 rounded-xl border border-purple-200 text-xs text-purple-950">
+                  <div className="p-3 bg-orange-50 rounded-xl border border-orange-200 text-xs text-orange-950">
                     ✓ Your verified certificates and Trust Score will be attached to this application.
                   </div>
 
@@ -440,7 +440,7 @@ export const JobMarketplacePage: React.FC = () => {
                       required
                       value={proposedWage}
                       onChange={e => setProposedWage(e.target.value)}
-                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                     />
                   </div>
 
@@ -451,7 +451,7 @@ export const JobMarketplacePage: React.FC = () => {
                       required
                       value={coverNote}
                       onChange={e => setCoverNote(e.target.value)}
-                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                     />
                   </div>
 
@@ -466,7 +466,7 @@ export const JobMarketplacePage: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isApplying}
-                      className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
+                      className="px-5 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
                     >
                       {isApplying ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
                       <span>Submit Application</span>
@@ -485,7 +485,7 @@ export const JobMarketplacePage: React.FC = () => {
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
             <div className="bg-slate-50 border-b border-slate-200 px-6 py-4 text-slate-900 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Building2 className="w-5 h-5 text-purple-600" />
+                <Building2 className="w-5 h-5 text-orange-600" />
                 <h3 className="font-bold text-base">Post a New Job Requirement</h3>
               </div>
               <button 
@@ -505,7 +505,7 @@ export const JobMarketplacePage: React.FC = () => {
                   placeholder="e.g. Master Electrician for 3-Phase Panel Setup"
                   value={postTitle}
                   onChange={e => setPostTitle(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -518,7 +518,7 @@ export const JobMarketplacePage: React.FC = () => {
                     placeholder="Electrician, Panel Wiring"
                     value={postSkills}
                     onChange={e => setPostSkills(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -529,7 +529,7 @@ export const JobMarketplacePage: React.FC = () => {
                     placeholder="e.g. 10 Days"
                     value={postDuration}
                     onChange={e => setPostDuration(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -542,7 +542,7 @@ export const JobMarketplacePage: React.FC = () => {
                     required
                     value={postWage}
                     onChange={e => setPostWage(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -550,7 +550,7 @@ export const JobMarketplacePage: React.FC = () => {
                   <select
                     value={postWageType}
                     onChange={e => setPostWageType(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   >
                     <option value="daily">Per Day</option>
                     <option value="contract">Fixed Contract</option>
@@ -563,20 +563,20 @@ export const JobMarketplacePage: React.FC = () => {
                     required
                     value={postCity}
                     onChange={e => setPostCity(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Project Scope & Safety Details</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Project Scope & Details</label>
                 <textarea
                   rows={3}
                   required
-                  placeholder="Detail the technical tasks, site safety gear requirements, and milestone objectives..."
+                  placeholder="Detail the technical tasks and milestone objectives..."
                   value={postDesc}
                   onChange={e => setPostDesc(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -591,10 +591,10 @@ export const JobMarketplacePage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isPosting}
-                  className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
+                  className="px-5 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
                 >
                   {isPosting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
-                  <span>Publish Job Listing</span>
+                  <span>Publish Job</span>
                 </button>
               </div>
             </form>

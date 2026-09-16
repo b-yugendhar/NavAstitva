@@ -90,14 +90,14 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
           <img 
             src={employer?.avatarUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200'} 
             alt="Employer" 
-            className="w-16 h-16 rounded-2xl object-cover border-2 border-purple-500 shadow-xs" 
+            className="w-16 h-16 rounded-2xl object-cover border-2 border-orange-500 shadow-xs" 
           />
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-2xl font-extrabold text-slate-900">{employer?.companyName || 'Apex Infra'}</h1>
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 text-xs font-bold">
-                <ShieldCheck className="w-3.5 h-3.5 text-purple-600" />
-                <span>Verified Employer</span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-800 text-xs font-bold">
+                <ShieldCheck className="w-3.5 h-3.5 text-orange-600" />
+                <span>Verified</span>
               </span>
             </div>
             <p className="text-xs text-slate-500 flex items-center gap-3 mt-1">
@@ -114,10 +114,10 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
 
         <button
           onClick={() => setIsPostModalOpen(true)}
-          className="px-5 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer"
+          className="px-5 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
-          <span>Post a Verified Job</span>
+          <span>Post a Job</span>
         </button>
       </div>
 
@@ -125,11 +125,11 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider">Active Job Posts</span>
-            <Briefcase className="w-4 h-4 text-purple-600" />
+            <span className="text-xs font-bold uppercase tracking-wider">Active Jobs</span>
+            <Briefcase className="w-4 h-4 text-orange-600" />
           </div>
           <div className="text-2xl font-black text-slate-900">{jobs.length}</div>
-          <div className="text-xs text-slate-500 mt-1">Receiving AI-matched applicants</div>
+          <div className="text-xs text-slate-500 mt-1">Open for applications</div>
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
@@ -138,25 +138,25 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
             <Users className="w-4 h-4 text-orange-500" />
           </div>
           <div className="text-2xl font-black text-slate-900">4 Workers</div>
-          <div className="text-xs text-slate-500 mt-1">Under signed digital agreements</div>
+          <div className="text-xs text-slate-500 mt-1">Under active agreements</div>
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider">Demo Escrow Committed</span>
-            <Lock className="w-4 h-4 text-purple-600" />
+            <span className="text-xs font-bold uppercase tracking-wider">Escrow Committed</span>
+            <Lock className="w-4 h-4 text-orange-600" />
           </div>
           <div className="text-2xl font-black text-slate-900">₹24,500</div>
-          <div className="text-xs text-purple-700 font-semibold mt-1">Protected in Demo Vault</div>
+          <div className="text-xs text-orange-700 font-semibold mt-1">Protected in escrow</div>
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between text-slate-500 mb-2">
             <span className="text-xs font-bold uppercase tracking-wider">Employer Rating</span>
-            <ShieldCheck className="w-4 h-4 text-orange-500" />
+            <ShieldCheck className="w-4 h-4 text-red-500" />
           </div>
           <div className="text-2xl font-black text-slate-900">4.9 ★</div>
-          <div className="text-xs text-slate-500 mt-1">100% on-time milestone release</div>
+          <div className="text-xs text-slate-500 mt-1">On-time milestone releases</div>
         </div>
       </div>
 
@@ -166,7 +166,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
           <div>
             <h2 className="text-lg font-extrabold text-slate-900">Active Job Postings</h2>
             <p className="text-xs text-slate-500">
-              View applicants ranked by NavAstitva's transparent AI matching formula (Skills 40%, Experience 20%, Location 15%, Availability 15%, Wage 10%).
+              Manage your job posts and review matched candidate profiles.
             </p>
           </div>
         </div>
@@ -177,7 +177,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <h3 className="font-bold text-sm text-slate-900">{job.title}</h3>
-                  <span className="text-[11px] px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-bold">
+                  <span className="text-[11px] px-2 py-0.5 rounded bg-orange-100 text-orange-800 font-bold">
                     {job.status.toUpperCase()}
                   </span>
                 </div>
@@ -188,7 +188,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
                   <span>•</span>
                   <span>{job.duration}</span>
                   <span>•</span>
-                  <span className="font-semibold text-purple-700">{job.applicantsCount} Applicants</span>
+                  <span className="font-semibold text-orange-700">{job.applicantsCount} Applicants</span>
                 </p>
                 <div className="flex flex-wrap gap-1 mt-2">
                   {job.requiredSkills.map((sk, idx) => (
@@ -202,10 +202,10 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
               <div className="flex items-center gap-2 w-full md:w-auto">
                 <button
                   onClick={() => onNavigate('matching')}
-                  className="flex-1 md:flex-none px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                  className="flex-1 md:flex-none px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-1.5"
                 >
                   <Users className="w-3.5 h-3.5" />
-                  <span>View Ranked Matches</span>
+                  <span>View Matches</span>
                 </button>
                 <button
                   onClick={() => onNavigate('agreements')}
@@ -226,7 +226,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
             <div className="bg-slate-900 px-6 py-4 text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-orange-400" />
-                <h3 className="font-bold text-base">Post a Verified Job on NavAstitva</h3>
+                <h3 className="font-bold text-base">Post a Job</h3>
               </div>
               <button 
                 onClick={() => setIsPostModalOpen(false)}
@@ -245,7 +245,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
                   placeholder="e.g. Solar Rooftop Wiring & Inverter Installation"
                   value={title}
                   onChange={e => setTitle(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -257,7 +257,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
                   placeholder="e.g. Industrial Electrician, Panel Wiring"
                   value={skills}
                   onChange={e => setSkills(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
@@ -270,7 +270,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
                     placeholder="e.g. Hyderabad"
                     value={city}
                     onChange={e => setCity(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -281,7 +281,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
                     placeholder="e.g. HITEC City"
                     value={area}
                     onChange={e => setArea(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -295,7 +295,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
                     placeholder="e.g. 1100"
                     value={wage}
                     onChange={e => setWage(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -306,7 +306,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
                     placeholder="e.g. 15 Days"
                     value={duration}
                     onChange={e => setDuration(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -317,24 +317,24 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
                     placeholder="e.g. 2"
                     value={workersCount}
                     onChange={e => setWorkersCount(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Description & Scope of Work</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Description & Scope</label>
                 <textarea 
                   rows={3}
-                  placeholder="Outline deliverables, safety protocols, and daily schedule..."
+                  placeholder="Outline work deliverables, schedule, and requirements..."
                   value={description}
                   onChange={e => setDescription(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
                 />
               </div>
 
-              <div className="p-3 bg-purple-50 rounded-lg border border-purple-200 text-[11px] text-purple-900 leading-relaxed">
-                <strong>Payment Protection Notice:</strong> Posting is free. When you execute a digital agreement with a worker, the agreed milestone payment will be placed in the NavAstitva Demo Escrow vault for transparent protection.
+              <div className="p-3 bg-orange-50 rounded-lg border border-orange-200 text-[11px] text-orange-950 leading-relaxed">
+                <strong>Payment Protection:</strong> When you execute a digital agreement, milestone funds are deposited safely into demo escrow.
               </div>
 
               <div className="flex justify-end gap-2 pt-2">
@@ -347,7 +347,7 @@ export const EmployerDashboard: React.FC<EmployerDashboardProps> = ({ onNavigate
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-lg text-xs font-bold bg-purple-600 hover:bg-purple-700 text-white cursor-pointer shadow-xs"
+                  className="px-5 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white cursor-pointer shadow-xs"
                 >
                   Publish Job
                 </button>

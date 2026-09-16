@@ -100,15 +100,15 @@ export const WorkerProfilePage: React.FC = () => {
               <img 
                 src={worker.avatarUrl || 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=256'} 
                 alt={worker.fullName} 
-                className="w-20 h-20 rounded-2xl object-cover border-4 border-purple-500 shadow-md" 
+                className="w-20 h-20 rounded-2xl object-cover border-4 border-orange-500 shadow-md" 
               />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-2xl font-extrabold text-slate-900">{worker.fullName}</h1>
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 text-xs font-bold">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-800 text-xs font-bold">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Verified Profile</span>
+                  <span>Verified</span>
                 </span>
               </div>
               <p className="text-xs text-slate-500 flex items-center gap-3 mt-1 flex-wrap">
@@ -117,26 +117,26 @@ export const WorkerProfilePage: React.FC = () => {
                   {worker.location.city}, {worker.location.state}
                 </span>
                 <span>•</span>
-                <span>{worker.experienceYears} Years Experience</span>
+                <span>{worker.experienceYears} Years Exp</span>
                 <span>•</span>
-                <span className="text-purple-700 font-bold">₹{worker.preferredDailyWage} / Day</span>
+                <span className="text-orange-700 font-bold">₹{worker.preferredDailyWage}/day</span>
                 <span>•</span>
-                <span className="text-amber-600 font-bold">★ {worker.ratingsAverage} ({worker.ratingsCount} Reviews)</span>
+                <span className="text-amber-600 font-bold">★ {worker.ratingsAverage} ({worker.ratingsCount} reviews)</span>
               </p>
             </div>
           </div>
 
           <button
             onClick={() => setIsEditing(!isEditing)}
-            className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer"
+            className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             {isEditing ? 'Cancel Editing' : 'Edit Profile'}
           </button>
         </div>
 
         {saveSuccess && (
-          <div className="mt-4 p-3 bg-purple-100 text-purple-900 rounded-xl text-xs font-bold flex items-center gap-1.5">
-            <Check className="w-4 h-4 text-purple-700" />
+          <div className="mt-4 p-3 bg-orange-100 text-orange-900 rounded-xl text-xs font-bold flex items-center gap-1.5">
+            <Check className="w-4 h-4 text-orange-700" />
             <span>Profile successfully updated!</span>
           </div>
         )}
@@ -160,7 +160,7 @@ export const WorkerProfilePage: React.FC = () => {
                 type="file"
                 accept="image/*"
                 onChange={handleAvatarUpload}
-                className="text-xs text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200"
+                className="text-xs text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-orange-100 file:text-orange-700 hover:file:bg-orange-200"
               />
             </div>
           </div>
@@ -173,7 +173,7 @@ export const WorkerProfilePage: React.FC = () => {
                 required
                 value={fullName}
                 onChange={e => setFullName(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
               />
             </div>
 
@@ -184,7 +184,7 @@ export const WorkerProfilePage: React.FC = () => {
                 required
                 value={city}
                 onChange={e => setCity(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
               />
             </div>
           </div>
@@ -197,7 +197,7 @@ export const WorkerProfilePage: React.FC = () => {
                 required
                 value={dailyWage}
                 onChange={e => setDailyWage(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
               />
             </div>
 
@@ -208,7 +208,7 @@ export const WorkerProfilePage: React.FC = () => {
                 required
                 value={experienceYears}
                 onChange={e => setExperienceYears(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
               />
             </div>
 
@@ -217,7 +217,7 @@ export const WorkerProfilePage: React.FC = () => {
               <select
                 value={availability}
                 onChange={e => setAvailability(e.target.value as any)}
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
               >
                 <option value="available">Available Immediately</option>
                 <option value="part_time">Part-Time Only</option>
@@ -233,7 +233,7 @@ export const WorkerProfilePage: React.FC = () => {
               required
               value={upiId}
               onChange={e => setUpiId(e.target.value)}
-              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
             />
           </div>
 
@@ -243,7 +243,7 @@ export const WorkerProfilePage: React.FC = () => {
               rows={3}
               value={bio}
               onChange={e => setBio(e.target.value)}
-              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"
+              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-orange-500 focus:outline-none"
             />
           </div>
 
@@ -258,7 +258,7 @@ export const WorkerProfilePage: React.FC = () => {
             <button
               type="submit"
               disabled={isSaving}
-              className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
+              className="px-5 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
             >
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
               <span>Save Changes</span>
@@ -286,7 +286,7 @@ export const WorkerProfilePage: React.FC = () => {
                       <div className="text-[11px] text-slate-500">{s.category} • {s.yearsOfExperience} Years Exp</div>
                     </div>
                     {s.isVerified && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 text-xs font-bold">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         Verified
                       </span>
@@ -303,7 +303,7 @@ export const WorkerProfilePage: React.FC = () => {
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Verified Badges</h3>
               <div className="flex flex-wrap gap-2">
                 {worker.badges.map((b, idx) => (
-                  <span key={idx} className="text-xs font-bold px-3 py-1.5 rounded-xl bg-purple-50 text-purple-800 border border-purple-200">
+                  <span key={idx} className="text-xs font-bold px-3 py-1.5 rounded-xl bg-orange-50 text-orange-800 border border-orange-200">
                     ★ {b}
                   </span>
                 ))}
@@ -313,7 +313,7 @@ export const WorkerProfilePage: React.FC = () => {
             <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-2 text-xs">
               <h3 className="font-bold uppercase tracking-wider text-slate-500">Direct Payment Details</h3>
               <div className="text-slate-700">UPI ID: <strong>{worker.upiId}</strong></div>
-              <div className="text-purple-700 font-semibold">✓ Bank Account Identity Match Confirmed</div>
+              <div className="text-emerald-700 font-semibold">✓ Bank Account Identity Match Confirmed</div>
             </div>
           </div>
         </div>

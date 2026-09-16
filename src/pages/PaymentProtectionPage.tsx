@@ -53,27 +53,27 @@ export const PaymentProtectionPage: React.FC = () => {
     <div className="space-y-8 pb-12">
       {/* Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-700 mb-1">
-          <Lock className="w-4 h-4 text-purple-600" />
-          <span>Payment Protection & Milestone Escrow Vault</span>
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-700 mb-1">
+          <Lock className="w-4 h-4 text-orange-600" />
+          <span>Payment Protection</span>
         </div>
         <h1 className="text-2xl font-black text-slate-900">
-          Guaranteed Milestone Payment Protection
+          Milestone Escrow Vault
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mt-1">
-          To eliminate the rampant problem of wage delays and non-payment in informal contracting, employers pre-commit milestone wages into the NavAstitva Escrow Vault. Funds are securely locked and disbursed immediately upon verified completion.
+        <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mt-1">
+          Milestone payments are securely held in escrow and disbursed directly upon verified work completion.
         </p>
       </div>
 
-      {/* Demo Notice Banner */}
-      <div className="p-4 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-900 flex items-start gap-3">
-        <ShieldCheck className="w-5 h-5 text-orange-700 shrink-0 mt-0.5" />
+      {/* Notice Banner */}
+      <div className="p-4 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-900 flex items-center gap-3">
+        <ShieldCheck className="w-5 h-5 text-orange-600 shrink-0" />
         <div className="leading-relaxed">
-          <strong>Demonstration Escrow Environment:</strong> Financial transactions are simulated safely within this ecosystem. Employers can commit demo funds, and workers receive verified proof that funds are held before beginning work on site.
+          <strong>Protected Escrow:</strong> Funds are locked before work begins on-site and released immediately upon approval.
         </div>
       </div>
 
-      {/* Vault Balance Cards in Clean Light Theme */}
+      {/* Vault Balance Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
           <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
@@ -84,7 +84,7 @@ export const PaymentProtectionPage: React.FC = () => {
           </div>
           <div className="text-xs text-slate-500 mt-2 flex items-center gap-1">
             <Lock className="w-3.5 h-3.5 text-orange-600" />
-            <span>Currently locked pending work approval</span>
+            <span>Currently locked pending approval</span>
           </div>
         </div>
 
@@ -92,12 +92,12 @@ export const PaymentProtectionPage: React.FC = () => {
           <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
             Successfully Disbursed
           </div>
-          <div className="text-3xl font-black text-purple-600">
+          <div className="text-3xl font-black text-red-600">
             ₹{totalReleased.toLocaleString()}
           </div>
           <div className="text-xs text-slate-500 mt-2 flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5 text-purple-600" />
-            <span>Transferred to worker bank accounts</span>
+            <CheckCircle2 className="w-3.5 h-3.5 text-red-600" />
+            <span>Transferred to worker accounts</span>
           </div>
         </div>
 
@@ -105,17 +105,17 @@ export const PaymentProtectionPage: React.FC = () => {
           <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
             Payment Protection Rate
           </div>
-          <div className="text-3xl font-black text-indigo-600">
+          <div className="text-3xl font-black text-orange-600">
             100%
           </div>
           <div className="text-xs text-slate-500 mt-2">
-            Zero wage theft across digital agreements
+            Zero wage disputes across signed contracts
           </div>
         </div>
       </div>
 
       {lastActionMsg && (
-        <div className="p-3 bg-purple-100 text-purple-900 rounded-xl text-xs font-bold">
+        <div className="p-3 bg-orange-100 text-orange-900 rounded-xl text-xs font-bold">
           ✓ {lastActionMsg}
         </div>
       )}
@@ -131,7 +131,7 @@ export const PaymentProtectionPage: React.FC = () => {
             <Lock className="w-8 h-8 text-slate-400 mx-auto" />
             <div className="font-bold text-slate-800 text-sm">No Escrow Transactions Yet</div>
             <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-              When work contracts are signed between employers and workers, milestone payments are automatically vaulted here to guarantee compensation.
+              When work contracts are signed, milestone payments appear here.
             </p>
             <button
               onClick={seedDatabaseDemo}
@@ -152,7 +152,7 @@ export const PaymentProtectionPage: React.FC = () => {
                     <span className="font-mono text-xs font-bold text-slate-400">{p.escrowReference}</span>
                     <span className={`px-2.5 py-0.5 rounded-full text-xs font-black uppercase ${
                       p.status === 'released'
-                        ? 'bg-purple-100 text-purple-800'
+                        ? 'bg-emerald-100 text-emerald-800'
                         : p.status === 'disputed_hold'
                         ? 'bg-rose-100 text-rose-800'
                         : 'bg-orange-100 text-orange-800'
@@ -178,7 +178,7 @@ export const PaymentProtectionPage: React.FC = () => {
                     <button
                       onClick={() => handleRelease(p.id)}
                       disabled={isReleasing}
-                      className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                      className="px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                     >
                       <Unlock className="w-3.5 h-3.5" />
                       <span>Release to Worker</span>
