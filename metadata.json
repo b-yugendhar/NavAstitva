@@ -1,0 +1,7 @@
+{
+  "name": "NavAstitva",
+  "description": "AI-Powered Employment Ecosystem connecting skilled workers and employers with verified skills, explainable trust scores, digital agreements, and dispute resolution.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
